@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 HOOKS_PATH=$(dirname $0)
 
+ERRORS=0
+
 # flake8 on Python files
 $HOOKS_PATH/py_flake8.py
+let ERRORS=$ERRORS+$?
 
 # lintr on R files
 $HOOKS_PATH/r_lintr.sh
+let ERRORS=$ERRORS+$?
+
+exit $ERRORS
