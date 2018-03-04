@@ -8,8 +8,8 @@ Currently, this hook performs code checking on your commits for the following la
 - Python, using `flake8`
 - R, using `lintr`.
 
-If you try to commit code that does pass the check, your commit is rejected.
-In that case, fix your code and commit again.
+If you commit code that does not pass the inspection, your commit will be rejected.
+If this happens, simply make the appropriate edits to your code and commit again.
 
 1. Please make sure that `coreutils` is installed on your system:
    ```bash
@@ -25,7 +25,13 @@ In that case, fix your code and commit again.
 
 4. Run the installer on the desired repository (e.g. on `~/Git/my-linty-repo`)
    ```bash
-   ./~/Git/style/client/installer.sh ~/Git/my-linty-repo
+   ~/Git/style/client/installer.sh ~/Git/my-linty-repo
    ```
 
-5. You are all set.
+5. If this is a brand new repository, i.e. if there are no references in
+   ```bash
+   ~/Git/my-linty-repo/.git/refs/heads/master
+   ```
+   then please make a first "Initial commit" that does not involve code that should be checked (e.g. create a `README`, `.gitignore`, ...).
+
+6. Your pre-commit hook should now be correctly configured.
