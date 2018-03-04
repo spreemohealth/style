@@ -11,21 +11,21 @@ Currently, this hook performs code checking on your commits for the following la
 If you try to commit code that does pass the check, your commit is rejected.
 In that case, fix your code and commit again.
 
-Please make sure that `coreutils` is installed on your system:
-```bash
-brew install coreutils
-```
+1. Please make sure that `coreutils` is installed on your system:
+   ```bash
+   brew install coreutils
+   ```
 
-1. Clone this repository on your system (say in `~/Git/style`).
+2. Clone this repository on your system (say in `~/Git/style`).
 
-2. Make the installer executable:
+3. Make the installer executable:
    ```bash
    chmod +x ~/Git/style/client/installer.sh
    ```
 
-3. Run the installer on the desired repository (e.g. on `~/Git/my-linty-repo`)
+4. Run the installer on the desired repository (e.g. on `~/Git/my-linty-repo`)
    ```bash
    ./~/Git/style/client/installer.sh ~/Git/my-linty-repo
    ```
 
-4. You are all set.
+5. You are all set.
