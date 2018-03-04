@@ -4,9 +4,13 @@ This repository contains code used to manage and enforce style/code checking in 
 ## Configuring a pre-commit hook
 This section explains how to configure a client-level pre-commit hook for a target Git repository.
 
+---
+
 Currently, this hook performs code checking on your commits for the following languages:
 - Python, using `flake8`
 - R, using `lintr`.
+
+---
 
 If you commit code that does not pass the inspection, your commit will be rejected.
 If this happens, simply make the appropriate edits to your code and commit again.
