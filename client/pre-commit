@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+HOOKS_PATH=$(dirname $0)
+
+# flake8 on Python files
+$HOOKS_PATH/py_flake8.py
+
+# lintr on R files
+$HOOKS_PATH/r_lintr.sh

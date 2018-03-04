@@ -1,3 +1,5 @@
+#!/usr/bin/env R
+#
 # From https://gist.github.com/wookietreiber/afdb946625c6090f96012ee1da316a73#file-git-hook-lintr-r
 files <- commandArgs(trailingOnly = TRUE)
 
