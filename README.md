@@ -1,20 +1,31 @@
 # What is this?
 This repository contains code used to manage and enforce style/code checking in the `spreemohealth` GitHub organization.
 
-## Python
+## Configuring a pre-commit hook
+This section explains how to configure a client-level pre-commit hook.
 
-### Configuring a flake8 pre-commit hook
-1. `cd` into the root of your local repository
+Currently, this hook performs code checking on your commits for the following languages:
+- Python, using `flake8`
+- R, using `lintr`.
+
+If you try to commit code that does pass the check, your commit is rejected.
+In that case, fix your code and commit again.
+
+Please make sure that `coreutils` is installed on your system:
+```bash
+brew install coreutils
+```
+
+1. Clone this repository on your system (say in `~/Git/style`).
+
+2. Make the installer executable:
    ```bash
-   cd ~/mattiaciollaro/Git/my_tidy_repo
+   chmod +x ~/Git/style/client/installer.sh
    ```
 
-2. activate your Python virtual environment, if one is configured for this project
-
-3. run the configuration script
+3. Run the installer on the desired repository (e.g. on `~/Git/my-linty-repo`)
    ```bash
-   source .../style/client/py_flake8_pre_commit
+   ./~/Git/style/client/installer.sh ~/Git/my-linty-repo
    ```
 
-From now on, `flake8` will check your Python code against coding style (PEP8), programming errors, etc.
-If `flake8` has non-zero exit status after checking your Python code, your commit will not be accepted: in this case, fix your code before committing your changes. 
+4. You are all set.
