@@ -1,3 +1,8 @@
+> You got that James Dean daydream look in your eye
+> And I got that red lip, classic thing that you like
+> And when we go crashing down, we come back every time
+> 'Cause we never go out of style, we never go out of style...
+
 # What is this?
 This repository contains code used to manage and enforce style/code checking in the `spreemohealth` GitHub organization.
 
@@ -51,19 +56,19 @@ If this happens, simply make the appropriate edits to your code and commit again
 8. Your pre-commit hook should now be correctly configured.
 
 ## How to avoid code checking
-Generally, you want *all* of your code to be checked without exception.
+Generally, you want *all* of your code to be checked without exceptions.
 However, there may be special circumstances under which you may desire to exclude a line or a block of code from being checked.
-This section explains how to do this for the languages listed above.
+This section explains how to do this for the supported languages.
 
-**Use wisely...**
+**Use wisely.**
 
 ### Python - `flake8`
-You can exclude an entire file from being checked by including the following line in it:
+You can exclude an entire file from being checked by including the following line at the top of it:
 ```python
-`# flake8: noqa`
+# flake8: noqa
 ```
 
-Use the `# noqa` inline comment to exclude a given line:
+Use the `# noqa` inline comment to exclude a single line:
 ```python
 # this line will raise an error
 a= 1 
