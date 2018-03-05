@@ -49,3 +49,53 @@ If this happens, simply make the appropriate edits to your code and commit again
    then please make an "Initial commit" that does not involve code that should be checked (e.g. create a `README`, `.gitignore`, ...).
 
 8. Your pre-commit hook should now be correctly configured.
+
+## How to avoid code checking
+Generally, you want *all* of your code to be checked without exception.
+However, there may be special circumstances under which you may desire to exclude a line or a block of code from being checked.
+This section explains how to do this for the languages listed above.
+
+**Use wisely...**
+
+### Python - `flake8`
+You can exclude an entire file from being checked by including the following line in it:
+```python
+`# flake8: noqa`
+```
+
+Use the `# noqa` inline comment to exclude a given line:
+```python
+# this line will raise an error
+a= 1 
+
+# this line will not raise an error,
+# because it is excluded from code checking
+b=2 # noqa
+```
+
+You can exclude specific errors on a line with `# noqa: <error>`, e.g. `# noqa: E234`.
+
+### R - `lintr`
+Use the `# nolint` inline comment to exclude a given line:
+```R
+# this line will raise an error
+a= 1
+
+# this line will not raise an error,
+# because it is excluded from code checking
+b=2 # nolint
+```
+
+You can exclude an entire block of code like so:
+```R
+# the following block will not raise errors
+# because it is excluded from code checking
+
+# nolint start
+a= 1
+b=2
+# nolint end
+
+# this line will raise an error
+x <- c(1,2, 3)
+```
