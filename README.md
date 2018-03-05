@@ -16,8 +16,8 @@ This repository contains code used to manage and enforce style/code checking in 
 ---
 
 Currently, this hook performs code checking on your commits for the following languages:
-- Python, using `flake8`
-- R, using `lintr`.
+- Python (i.e. `.py` files), using `flake8`
+- R (i.e. `.r` or `.R` files), using `lintr`.
 
 ---
 
