@@ -6,5 +6,5 @@ REGEX='\.py$'
 FILES=$(get_git_diff_index $REGEX)
 
 if [[ -n $FILES ]]; then
-    python .git/hooks/style/py_flake8.py $FILES
+    python .git/hooks/style/py_flake8.py $FILES || exit 1
 fi
