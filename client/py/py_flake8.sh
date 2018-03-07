@@ -8,5 +8,5 @@ fi
 files=$(git diff-index --cached --name-only $AGAINST | grep -E '\.py$')
 
 if [[ -n $files ]]; then
-    python .git/hooks/py_flake8.py $files
+    python .git/hooks/style/py_flake8.py $files
 fi

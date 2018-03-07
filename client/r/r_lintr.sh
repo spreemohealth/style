@@ -11,5 +11,5 @@ fi
 files=$(git diff-index --cached --name-only $AGAINST | grep -E '\.[rR]$')
 
 if [[ -n $files ]]; then
-    Rscript --vanilla .git/hooks/r_lintr.R $files || exit 1
+    Rscript --vanilla .git/hooks/style/r_lintr.R $files || exit 1
 fi

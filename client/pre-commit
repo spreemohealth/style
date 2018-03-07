@@ -4,11 +4,11 @@ HOOKS_PATH=$(dirname $0)
 ERRORS=0
 
 # flake8 on Python files
-$HOOKS_PATH/py_flake8.sh
+$HOOKS_PATH/style/py_flake8.sh
 let ERRORS=$ERRORS+$?
 
 # lintr on R files
-$HOOKS_PATH/r_lintr.sh
+$HOOKS_PATH/style/r_lintr.sh
 let ERRORS=$ERRORS+$?
 
 exit $ERRORS
