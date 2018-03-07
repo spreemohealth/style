@@ -51,13 +51,7 @@ When this happens, simply make the appropriate edits to your code and commit aga
    ~/Git/style/client/installer.sh ~/Git/my-linty-repo
    ```
 
-7. If this is a brand new repository, i.e. if there are no references in
-   ```bash
-   ~/Git/my-linty-repo/.git/refs/heads/master
-   ```
-   then please make an "Initial commit" that does not involve code that should be checked (e.g. create a `README`, `.gitignore`, ...).
-
-8. Your pre-commit hook should now be correctly configured on the target repository.
+7. Your pre-commit hook should now be correctly configured on the target repository.
 
 ## How to avoid code checking
 Generally, you want *all* of your code to be checked without exceptions.
@@ -79,7 +73,7 @@ a= 1
 
 # this line will not raise an error,
 # because it is excluded from code checking
-b=2 # noqa
+b =2 # noqa
 ```
 
 You can exclude specific errors on a line with `# noqa: <error>`, e.g. `# noqa: E234`.
@@ -92,7 +86,7 @@ a= 1
 
 # this line will not raise an error,
 # because it is excluded from code checking
-b=2 # nolint
+b =2 # nolint
 ```
 
 You can exclude an entire block of code like so:
@@ -102,7 +96,7 @@ You can exclude an entire block of code like so:
 
 # nolint start
 a= 1
-b=2
+b =2
 # nolint end
 
 # this line will raise an error
