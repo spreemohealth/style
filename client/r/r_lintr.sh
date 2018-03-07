@@ -9,5 +9,5 @@ REGEX='\.[rR]$'
 FILES=$(get_git_diff_index $REGEX)
 
 if [[ -n $FILES ]]; then
-    Rscript --vanilla .git/hooks/style/r_lintr.R $FILES || exit 1
+    Rscript .git/hooks/style/r_lintr.R $FILES || exit 1
 fi
