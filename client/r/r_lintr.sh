@@ -8,8 +8,8 @@ else
     AGAINST=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-files=$(git diff-index --cached --name-only $AGAINST | grep -E '\.[rR]$')
+FILES=$(git diff-index --cached --name-only $AGAINST | grep -E '\.[rR]$')
 
-if [[ -n $files ]]; then
-    Rscript --vanilla .git/hooks/style/r_lintr.R $files || exit 1
+if [[ -n $FILES ]]; then
+    Rscript --vanilla .git/hooks/style/r_lintr.R $FILES || exit 1
 fi
