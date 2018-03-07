@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-if git rev-parse --verify HEAD &> /dev/null; then
-    AGAINST=HEAD
-else
-    AGAINST=4b825dc642cb6eb9a060e54bf8d69288fbee4904
-fi
+source .git/hooks/style/get_git_diff_index.sh
 
-FILES=$(git diff-index --cached --name-only $AGAINST | grep -E '\.py$')
+REGEX='\.py$'
+
+FILES=$(get_git_diff_index $REGEX)
 
 if [[ -n $FILES ]]; then
     python .git/hooks/style/py_flake8.py $FILES

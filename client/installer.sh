@@ -8,7 +8,10 @@ REPO_PATH=$1
 
 # make a 'style' directory in .git/hooks
 mkdir -p $REPO_PATH/.git/hooks/style
+
 # copy files in the REPO_PATH hooks subdirectory
+cp $INSTALLER_DIR/get_git_diff_index.sh $REPO_PATH/.git/hooks/style
+
 cp $INSTALLER_DIR/py/py_flake8.py $REPO_PATH/.git/hooks/style
 cp $INSTALLER_DIR/py/py_flake8.sh $REPO_PATH/.git/hooks/style
 chmod +x $REPO_PATH/.git/hooks/style/py_flake8.sh
