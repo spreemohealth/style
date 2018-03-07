@@ -8,7 +8,8 @@ REPO_PATH=$1
 
 # copy files in the REPO_PATHsitory hooks subdirectory
 cp $INSTALLER_DIR/py/py_flake8.py $REPO_PATH/.git/hooks
-chmod +x $REPO_PATH/.git/hooks/py_flake8.py
+cp $INSTALLER_DIR/py/py_flake8.sh $REPO_PATH/.git/hooks
+chmod +x $REPO_PATH/.git/hooks/py_flake8.sh
 
 cp $INSTALLER_DIR/r/r_lintr.R $REPO_PATH/.git/hooks
 cp $INSTALLER_DIR/r/r_lintr.sh $REPO_PATH/.git/hooks
