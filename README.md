@@ -53,7 +53,7 @@ When this happens, simply make the appropriate edits to your code and commit aga
 
 7. Your pre-commit hook should now be correctly configured on the target repository.
 
-## How to avoid code checking
+## How to bypass code checking
 Generally, you want *all* of your code to be checked without exceptions.
 However, there may be special circumstances under which you may desire to exclude a line or a block of code from being checked.
 This section explains how to do this for the supported languages (more details can be found in the documentation of the relevant packages).
