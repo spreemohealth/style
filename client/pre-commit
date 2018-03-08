@@ -11,4 +11,4 @@ let ERRORS=$ERRORS+$?
 $HOOKS_PATH/style/r_lintr.sh
 let ERRORS=$ERRORS+$?
 
-exit $ERRORS
+exit $ERRORS || 1

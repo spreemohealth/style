@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-#
-# This is a modified version of https://gist.github.com/wookietreiber/afdb946625c6090f96012ee1da316a73#file-git-hook-lintr-r
-#
-source .git/hooks/style/get_git_diff_index.sh
+source .git/hooks/style/util.sh
 
 REGEX='\.[rR]$'
 
-FILES=$(get_git_diff_index $REGEX)
+FILES=$(get_staged_files $REGEX)
 
-if [[ -n $FILES ]]; then
-    Rscript .git/hooks/style/r_lintr.R $FILES || exit 1
-fi
+ERRORS=0
+for FILE in $FILES; do
+    lint "r" $FILE
+    let ERRORS=ERRORS+$?
+done
+
+exit $ERRORS || 1

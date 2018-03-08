@@ -10,13 +10,11 @@ REPO_PATH=$1
 mkdir -p $REPO_PATH/.git/hooks/style
 
 # copy files in the REPO_PATH hooks subdirectory
-cp $INSTALLER_DIR/get_git_diff_index.sh $REPO_PATH/.git/hooks/style
+cp $INSTALLER_DIR/util.sh $REPO_PATH/.git/hooks/style
 
-cp $INSTALLER_DIR/py/py_flake8.py $REPO_PATH/.git/hooks/style
 cp $INSTALLER_DIR/py/py_flake8.sh $REPO_PATH/.git/hooks/style
 chmod +x $REPO_PATH/.git/hooks/style/py_flake8.sh
 
-cp $INSTALLER_DIR/r/r_lintr.R $REPO_PATH/.git/hooks/style
 cp $INSTALLER_DIR/r/r_lintr.sh $REPO_PATH/.git/hooks/style
 chmod +x $REPO_PATH/.git/hooks/style/r_lintr.sh
 

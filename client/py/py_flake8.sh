@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
-source .git/hooks/style/get_git_diff_index.sh
+source .git/hooks/style/util.sh
 
 REGEX='\.py$'
 
-FILES=$(get_git_diff_index $REGEX)
+FILES=$(get_staged_files $REGEX)
 
-if [[ -n $FILES ]]; then
-    python .git/hooks/style/py_flake8.py $FILES || exit 1
-fi
+ERRORS=0
+for FILE in $FILES; do
+    lint "py" $FILE
+    let ERRORS=ERRORS+$?
+done
+
+exit $ERRORS || 1
