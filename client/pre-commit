@@ -3,7 +3,7 @@ HOOKS_PATH=$(dirname $0)
 
 ERRORS=0
 
-# flake8 on Python files
+# lint Python files
 $HOOKS_PATH/style/py_flake8.sh
 let ERRORS=$ERRORS+$?
 
@@ -11,4 +11,4 @@ let ERRORS=$ERRORS+$?
 $HOOKS_PATH/style/r_lintr.sh
 let ERRORS=$ERRORS+$?
 
-exit $ERRORS || 1
+exit $ERRORS

@@ -11,4 +11,4 @@ for FILE in $FILES; do
     let ERRORS=ERRORS+$?
 done
 
-exit $ERRORS || 1
+exit $ERRORS
