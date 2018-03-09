@@ -11,16 +11,23 @@ get_staged_files () {
 }
 
 lint () {
-    # make file name for staged file
-    TMP_FILE_NAME="(staged) $2"
+    # temporary location
+    TMP="/tmp"
 
-    # write staged version to file
+    # make temporary file name for staged file
+    TMP_FILE_NAME="$TMP/style/$2"
+
+    # ensure that dirname of temporary file exists
+    TMP_FILE_DIR=$(dirname $TMP_FILE_NAME)
+    mkdir -p "$TMP_FILE_DIR"
+
+    # write staged version to temporary file
     git show ":$2" > "$TMP_FILE_NAME"
 
-    # make temp file for output of linter
+    # make temp file for linter's output
     LINT_OUTPUT=$(mktemp)
 
-    # run linter and write to temp file
+    # run linter and write to temporary linter's output file
     case "$1" in
 
         "py")
@@ -30,10 +37,10 @@ lint () {
             R --slave -e "lintr::lint('$TMP_FILE_NAME')" > "$LINT_OUTPUT";;
     esac
 
-    # display linter output
+    # display linter's output file
     cat "$LINT_OUTPUT"
 
-    # form output
+    # form return code for this function
     if [ -s "$LINT_OUTPUT" ]; then
         OUTPUT=1
     else
@@ -42,7 +49,7 @@ lint () {
 
     # clean
     rm "$LINT_OUTPUT"
-    rm "$TMP_FILE_NAME"
+    rm -rf "$TMP_FILE_DIR"
 
     return $OUTPUT
 }
