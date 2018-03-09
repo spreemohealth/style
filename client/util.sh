@@ -11,30 +11,32 @@ get_staged_files () {
 }
 
 lint () {
-    # temporary location
-    TMP="/tmp"
+    # create temporary directory
+    TMP="$(mktemp -d)"
 
-    # make temporary file name for staged file
-    TMP_FILE_NAME="$TMP/style/$2"
+    # get dirname and basename of staged file
+    FILE_DIRNAME="$(dirname $2)"
+    FILE_BASENAME="$(basename $2)"
 
-    # ensure that dirname of temporary file exists
-    TMP_FILE_DIR=$(dirname $TMP_FILE_NAME)
-    mkdir -p "$TMP_FILE_DIR"
+    # make a temporary copy of the staged file in the temporary directory
+    mkdir -p "$TMP/$FILE_DIRNAME"
+    TMP_FILE="$TMP/$FILE_DIRNAME/$FILE_BASENAME"
+    git show ":$2" > "$TMP_FILE"
 
-    # write staged version to temporary file
-    git show ":$2" > "$TMP_FILE_NAME"
-
-    # make temp file for linter's output
+    # make temporary file for linter's output
     LINT_OUTPUT=$(mktemp)
+
+    # get relative path of the copy of the staged file
+    TMP_FILE_REL_PATH="$(realpath $TMP_FILE --relative-to $TMP)"
 
     # run linter and write to temporary linter's output file
     case "$1" in
 
         "py")
-            flake8 "$TMP_FILE_NAME" > "$LINT_OUTPUT";;
+            flake8 "$TMP_FILE_REL_PATH" > "$LINT_OUTPUT";;
 
         "r")
-            R --slave -e "lintr::lint('$TMP_FILE_NAME')" > "$LINT_OUTPUT";;
+            R --slave -e "lintr::lint('$TMP_FILE_REL_PATH')" > "$LINT_OUTPUT";;
     esac
 
     # display linter's output file
@@ -49,7 +51,7 @@ lint () {
 
     # clean
     rm "$LINT_OUTPUT"
-    rm -rf "$TMP_FILE_DIR"
+    rm -rf "$TMP"
 
     return $OUTPUT
 }
