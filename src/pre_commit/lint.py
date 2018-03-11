@@ -47,14 +47,18 @@ class Lint(object):
         """
         Main method that executes all of the available linters.
         """
+        # get staged files
+        staged_files_paths = self.git_handle.get_staged_files_paths()
+
+        # check that paths and file names are ok
+        for _path in staged_files_paths:
+            self.git_handle.check_staged_file_path_is_allowed(_path)
+
         # get the root of the project
         root = self.git_handle.get_git_root()
 
         # get the available linters
         linters = self.get_linters()
-
-        # get staged files
-        staged_files = self.git_handle.get_staged_files_paths()
 
         # create a temporary directory
         tmp_dir = TemporaryDirectory()
@@ -62,7 +66,7 @@ class Lint(object):
         # get the paths of the staged files, relative to the root of the git
         # repository
         staged_files_rel_paths = [
-            path.relpath(file, root) for file in staged_files
+            path.relpath(file, root) for file in staged_files_paths
         ]
 
         # write the content of the staged files to temporary files
@@ -129,7 +133,7 @@ class Lint(object):
         """
         "lintr" linter for R.
         """
-        # get all ".py" files from the list of staged files
+        # get all ".r" or ".R" files from the list of staged files
         r_files = [
             file for file in dir_content if file.endswith((".r", ".R"))
         ]
@@ -139,7 +143,10 @@ class Lint(object):
         # run lintr on each file
         for file in r_files:
             pipe = Popen(
-                ["Rscript", "--vanilla", "-e", "lintr::lint('%s')" % file],
+                [
+                    "R", "--slave", "--vanilla",
+                    "-e", "lintr::lint('%s')" % file
+                ],
                 stdout=PIPE,
                 stderr=PIPE
             )

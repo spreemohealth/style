@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 from os import path
+from shlex import shlex
 from subprocess import (
     Popen,
     PIPE
 )
+
+
+class ForbiddenCharacterError(Exception):
+    pass
 
 
 class GitHandle(object):
@@ -23,7 +28,8 @@ class GitHandle(object):
         )
         out, err = pipe.communicate()
 
-        root = out.decode('utf-8').rstrip()
+        # strip the trailing '\n' from the path
+        root = out.decode('utf-8').rstrip('\n')
         root_path = path.abspath(root)
 
         return root_path
@@ -39,7 +45,8 @@ class GitHandle(object):
         )
         out, err = pipe.communicate()
 
-        head_hash = out.decode('utf-8').rstrip()
+        # strip the trailing '\n'
+        head_hash = out.decode('utf-8').rstrip('\n')
 
         # use the special hash if there is no HEAD
         if not head_hash:
@@ -63,9 +70,12 @@ class GitHandle(object):
         staged_files = (
             out
             .decode('utf-8')
-            .strip()
+            .rstrip('\n')    # remove trailing '\n'
             .split('\n')
         )
+
+        # drop nulls produce by split, if any
+        staged_files = [file for file in staged_files if file]
 
         staged_files_paths = [
             path.abspath(file) for file in staged_files
@@ -73,15 +83,34 @@ class GitHandle(object):
 
         return staged_files_paths
 
-    def get_staged_file_content(self, staged_file):
+    def get_staged_file_content(self, staged_file_path):
         """
         Gets the content of a given staged file.
         """
+        # quote the staged_file name or path in order to take care of
+        # escaping in the shell
         pipe = Popen(
-            ["git", "show", ":%s" % staged_file],
+            ["git", "show", ":%s" % staged_file_path],
             stdout=PIPE,
             stderr=PIPE
         )
         out, err = pipe.communicate()
 
         return out
+
+    def check_staged_file_path_is_allowed(self, staged_file_path):
+        """
+        Checkx that paths and file names in the staging area do not contain
+        forbidden characters (such as whitespace, quotes, ...) that make it
+        complicated to execute shell commands.
+        """
+        forbidden = ''.join([
+            shlex().whitespace,
+            shlex().quotes,
+            shlex().escape
+        ])
+
+        if any(map(lambda x: x in forbidden, list(staged_file_path))):
+            raise ForbiddenCharacterError(
+                "Please do not use special characters in file names and paths."
+            )
