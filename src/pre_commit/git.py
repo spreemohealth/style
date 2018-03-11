@@ -88,7 +88,7 @@ class GitHandle(object):
 
     def get_staged_file_content(self, staged_file_path):
         """
-        Gets the content of a given staged file.
+        Gets the contents of a given staged file.
         """
         # quote the staged_file name or path in order to take care of
         # escaping in the shell
@@ -103,7 +103,7 @@ class GitHandle(object):
 
     def check_staged_file_path_is_allowed(self, staged_file_path):
         """
-        Checkx that paths and file names in the staging area do not contain
+        Checks that paths and file names in the staging area do not contain
         forbidden characters (such as whitespace, quotes, ...) that make it
         complicated to execute shell commands.
         """
