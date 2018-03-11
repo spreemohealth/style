@@ -48,7 +48,7 @@ When this happens, simply make the appropriate edits to your code and commit aga
 
    If you want, you can perform the installation on more than one target repository:
    ```bash
-   python install_pre_commit_hook ~/Git/my-linty-repo ~/Git/my-linty-repo2 ~/Git/my-linty-repo3 ... 
+   python install_pre_commit_hook ~/Git/my-linty-repo ~/Git/my-linty-repo2 ... 
    ```
 
 6. Your pre-commit hook should now be correctly configured.
