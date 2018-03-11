@@ -15,7 +15,7 @@ from subprocess import (
 )
 from tempfile import TemporaryDirectory
 
-from git import GitHandle
+from src.pre_commit.git import GitHandle
 
 
 class Lint(object):
@@ -99,14 +99,14 @@ class Lint(object):
 
     def lint_py(self, dir_content):
         """
-        flake8 linter for Python.
+        "flake8" linter for Python.
         """
         # get all ".py" files from the list of staged files
         py_files = [file for file in dir_content if file.endswith(".py")]
 
         # initialize a counter for files with linting problems
         non_zero_exits = 0
-        # run flake8 on each ".py" file
+        # run flake8 on each file
         for file in py_files:
             pipe = Popen(
                 ["flake8", file],
@@ -116,7 +116,7 @@ class Lint(object):
             out, err = pipe.communicate()
 
             out = out.decode('utf-8')
-            # if the flake8 outputs something, print the message to stdout
+            # if flake8 outputs something, print the message to stdout
             if out:
                 print(out)
 
@@ -125,8 +125,32 @@ class Lint(object):
 
         return non_zero_exits
 
-    # def lint_r(self, dir_content):
-    #     """
-    #     TODO: Add description.
-    #     """
-    #     pass
+    def lint_r(self, dir_content):
+        """
+        "lintr" linter for R.
+        """
+        # get all ".py" files from the list of staged files
+        r_files = [
+            file for file in dir_content if file.endswith((".r", ".R"))
+        ]
+
+        # initialize a counter for files with linting problems
+        non_zero_exits = 0
+        # run lintr on each file
+        for file in r_files:
+            pipe = Popen(
+                ["Rscript", "--vanilla", "-e", "lintr::lint('%s')" % file],
+                stdout=PIPE,
+                stderr=PIPE
+            )
+            out, err = pipe.communicate()
+
+            out = out.decode('utf-8')
+            # if lintr outputs something, print the message to stdout
+            if out:
+                print(out)
+
+            # get exit status from lintr
+            non_zero_exits += (1 if out else 0)
+
+        return non_zero_exits
