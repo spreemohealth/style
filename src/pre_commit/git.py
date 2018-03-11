@@ -8,6 +8,9 @@ from subprocess import (
 
 
 class ForbiddenCharacterError(Exception):
+    """
+    Exception raised if a path or a file name has forbidden characters in it.
+    """
     pass
 
 

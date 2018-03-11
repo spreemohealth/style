@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+"""
+This submodule is where all linters are defined.
+You are free to add more linters as needed.
+
+Adding linters for other languages is easy: just add a new
+"lint_<language_name>" method to the `Lint` class.
+
+A "lint_<language_name>" method must implement the following behavior:
+1) take a single file as input
+2) print all linting information related to the input file to stdout (if any)
+3) return 0 if there are no linting problems on the file and 1 if otherwise.
+"""
 import inspect
 import re
 
@@ -34,7 +46,7 @@ class Lint(object):
         Any method implemented in this class that begins with "lint_" is
         interpreted as a linter.
 
-        Please follow the naming convention "lint_<name_of_language>" if you
+        Please follow the naming convention "lint_<language_name>" if you
         implement additional linters.
         """
         methods = inspect.getmembers(self, predicate=inspect.ismethod)
