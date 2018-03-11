@@ -119,6 +119,7 @@ class Lint(object):
         """
         # get all ".py" files from the list of staged files
         py_files = [file for file in dir_content if file.endswith(".py")]
+        py_files = sorted(py_files)
 
         # initialize a counter for files with linting problems
         non_zero_exits = 0
@@ -149,6 +150,7 @@ class Lint(object):
         r_files = [
             file for file in dir_content if file.endswith((".r", ".R"))
         ]
+        r_files = sorted(r_files)
 
         # initialize a counter for files with linting problems
         non_zero_exits = 0
