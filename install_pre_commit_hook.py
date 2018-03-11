@@ -19,7 +19,7 @@ parser.add_argument(
     metavar="repo",
     type=str,
     nargs="+",
-    help="a target git repository.")
+    help="a target git repository")
 
 args = parser.parse_args()
 
