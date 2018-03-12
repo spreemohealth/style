@@ -90,7 +90,8 @@ for repo in repos:
 success_repos = {repo: value for repo, value in summary_dict.items() if value}
 success_repos = sorted(success_repos.keys())
 
-print(
-    "\nThe installation was successfull for the following repositories:\n%s"
-    % "\n".join(success_repos)
-)
+if len(success_repos) > 0:
+    print(
+        "\nThe installation was successfull "
+        "for the following repositories:\n%s" % "\n".join(success_repos)
+    )
