@@ -120,6 +120,6 @@ class Lint(object):
 
     def lint_r(self, dir_content):
         """
-        Linter methon for R.
+        Linter method for R.
         """
         return RLinter(dir_content=dir_content, extension=(".r", ".R")).lint()

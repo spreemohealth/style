@@ -66,7 +66,7 @@ A linter is expected to:
    1. send all linting information to stdout for the user (if any issues are detected)
    2. return the number of files that have style issues.
 
-Note that the `Linter` class in `src.pre_commit.linters` can be used as a wrapper to implement linters for different programming languages.
+Note that the `Linter` class in `src.pre_commit.linters` can be used as a wrapper for linters of different programming languages.
 See the implementation of `lint_py` and `lint_r` for more details.
 
 ### How to avoid code checking
