@@ -7,6 +7,8 @@
 >
 > 'Cause we never go out of style, we never go out of style...
 
+![style](http://teenageoracle.weebly.com/uploads/5/0/3/4/50348443/ezgif-2-9e4c6f0617_orig.gif)
+
 # What is this?
 This repository contains code used to manage and enforce style/code checking in the `spreemohealth` GitHub organization.
 
@@ -26,8 +28,8 @@ When this happens, simply make the appropriate edits to your code and commit aga
 
 1. Please make sure that Python 3 and R are both installed on your system.
 
-   *Note that in this example, `python` and `pip` point to my Homebrew Python 3 distribution.
-   If you are using a different distribution, please make the appropriate changes in the commands that follow.*
+   *Note that in this example, `python` and `pip` point to my Homebrew Python 3 distribution.*
+   *If you are using a different distribution, please make the appropriate changes in the commands that follow.*
 
 2. Make sure that the Python `flake8` module is installed for Python 3:
    ```bash
@@ -53,14 +55,29 @@ When this happens, simply make the appropriate edits to your code and commit aga
 
 6. Your pre-commit hook should now be correctly configured.
 
-## How to avoid code checking
+### Adding linters
+Adding support for additional programming languages is relatively straightforward.
+You just have to add a `lint_<language>` method to the `Lint` class in the `src.pre_commit.lint` module.
+
+A linter is expected to:
+- accept a single input: *a list of file paths*, corresponding to files that are in the git staging area
+- select only the files that are relevant to the language being checked
+- produce two pieces of output:
+   1. send all linting information to stdout for the user (if any issues are detected)
+   2. return the number of files that have style issues.
+
+See the implementation of `lint_py` and `lint_r` for more detail.
+
+### How to avoid code checking
 Generally, you want *all* of your code to be checked without exceptions.
 However, there may be special circumstances under which you may desire to exclude a line or a block of code from being checked.
 This section explains how to do this for the supported languages (more details can be found in the documentation of the relevant packages).
 
 **Use wisely.**
 
-### Python - `flake8`
+![shudders](https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif)
+
+#### Python - `flake8`
 You can exclude an entire file from being checked by including the following line at the top of it:
 ```python
 # flake8: noqa
@@ -78,7 +95,7 @@ b =2 # noqa
 
 You can exclude specific errors on a line with `# noqa: <error>`, e.g. `# noqa: E234`.
 
-### R - `lintr`
+#### R - `lintr`
 Use the `# nolint` inline comment to exclude a given line:
 ```R
 # this line will raise an error
