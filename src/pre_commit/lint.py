@@ -1,37 +1,36 @@
 #!/usr/bin/env python3
 """
-This submodule is where all linters are defined.
-You are free to add more linters as needed.
+This module is where all of the linting logic is defined.
 
-Adding linters for other languages is easy: just add a new
+Adding linters for additional languages is easy: just add a new
 "lint_<language_name>" method to the `Lint` class.
 
 A "lint_<language_name>" method must implement the following behavior:
 1) accept a list of file paths as input
-2) select only the files that are relevant to the language that is being
-   checked
+2) select only the files that are relevant to <language_name>
+   (e.g. by looking at file extensions that relate to <language_name>)
 3) produce two pieces of output:
-    - send all linting information to stdout for the user
-      (if any issues are detected)
-    - return the number of files that have style issues.
+    - send all linting information to stdout (if any issues are detected)
+    - return the number of files that have linting issues.
+
+Note that you can use the `Linter` convenience class in the
+`src.pre_commit.linters` module to implement additional linters.
 """
 import inspect
 import re
 
 from os import (
-    chdir,
-    getcwd,
-    listdir,
     makedirs,
-    path
-)
-from subprocess import (
-    Popen,
-    PIPE
+    path,
+    walk
 )
 from tempfile import TemporaryDirectory
 
 from src.pre_commit.git import GitHandle
+from src.pre_commit.linters import (
+    PythonLinter,
+    RLinter
+)
 
 
 class Lint(object):
@@ -97,85 +96,30 @@ class Lint(object):
                 content = self.git_handle.get_staged_file_content(rel_path)
                 tmp_file.write(content)
 
-        # get the current directory
-        cwd = getcwd()
-
-        # change directory to `tmp_dir` (this is just a trick to ensure that
-        # output from the linters is relative to the root of the git
-        # repository)
-        chdir(tmp_dir.name)
+        # get all files in the temporary directory
+        files_in_tmp_dir = [
+            path.relpath(path.join(root, name), tmp_dir.name)
+            for root, dirs, files in walk(tmp_dir.name)
+            for name in files
+        ]
 
         # initialize a counter to count how many linters return a non-zero
         # exit status
         non_zero_linters = 0
         for linter in linters:
             # run the linters
-            non_zero_linters += linter(listdir())
-
-        # change directory to original directory
-        chdir(cwd)
+            non_zero_linters += linter(files_in_tmp_dir)
 
         return non_zero_linters
 
-    def lint_py(self, dir_content):
+    def lint_python(self, dir_content):
         """
-        "flake8" linter for Python.
+        Linter method for Python.
         """
-        # get all ".py" files from the list of staged files
-        py_files = [file for file in dir_content if file.endswith(".py")]
-        py_files = sorted(py_files)
-
-        # initialize a counter for files with linting problems
-        non_zero_exits = 0
-        # run flake8 on each file
-        for file in py_files:
-            pipe = Popen(
-                ["flake8", file],
-                stdout=PIPE,
-                stderr=PIPE
-            )
-            out, err = pipe.communicate()
-
-            out = out.decode('utf-8')
-            # if flake8 outputs something, print the message to stdout
-            if out:
-                print(out)
-
-            # get exit status from flake8
-            non_zero_exits += (1 if out else 0)
-
-        return non_zero_exits
+        return PythonLinter(dir_content=dir_content, extension=".py").lint()
 
     def lint_r(self, dir_content):
         """
-        "lintr" linter for R.
+        Linter methon for R.
         """
-        # get all ".r" or ".R" files from the list of staged files
-        r_files = [
-            file for file in dir_content if file.endswith((".r", ".R"))
-        ]
-        r_files = sorted(r_files)
-
-        # initialize a counter for files with linting problems
-        non_zero_exits = 0
-        # run lintr on each file
-        for file in r_files:
-            pipe = Popen(
-                [
-                    "R", "--slave", "--vanilla",
-                    "-e", "lintr::lint('%s')" % file
-                ],
-                stdout=PIPE,
-                stderr=PIPE
-            )
-            out, err = pipe.communicate()
-
-            out = out.decode('utf-8')
-            # if lintr outputs something, print the message to stdout
-            if out:
-                print(out)
-
-            # get exit status from lintr
-            non_zero_exits += (1 if out else 0)
-
-        return non_zero_exits
+        return RLinter(dir_content=dir_content, extension=(".r", ".R")).lint()

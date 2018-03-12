@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+This module defines the `GitHandle` class which encapsulates the logic of all
+of the necessary interaction with git.
+"""
 from os import path
 from shlex import shlex
 from subprocess import (
@@ -7,7 +11,11 @@ from subprocess import (
 )
 
 
-class ForbiddenCharacterError(Exception):
+class GitError(Exception):
+    pass
+
+
+class ForbiddenCharacterError(GitError):
     """
     Exception raised if a path or a file name has forbidden characters in it.
     """
@@ -115,5 +123,6 @@ class GitHandle(object):
 
         if any(map(lambda x: x in forbidden, list(staged_file_path))):
             raise ForbiddenCharacterError(
-                "Please do not use special characters in file names and paths."
+                "Please do not use special characters "
+                "in file names and paths: %s" % staged_file_path
             )

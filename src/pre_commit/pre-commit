@@ -3,6 +3,9 @@ import sys
 
 from src.pre_commit.lint import Lint
 
+# set no traceback in error messages
+sys.tracebacklimit = 0
+
 sys.exit(
     Lint().run()
 )
