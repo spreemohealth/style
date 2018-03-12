@@ -7,9 +7,12 @@ Adding linters for other languages is easy: just add a new
 "lint_<language_name>" method to the `Lint` class.
 
 A "lint_<language_name>" method must implement the following behavior:
-1) take a single file as input
-2) print all linting information related to the input file to stdout (if any)
-3) return 0 if there are no linting problems on the file and 1 if otherwise.
+1) accept a list of file paths as input
+2) select only the files that are relevant to the language being checked
+3) produce two pieces of output:
+    - send all linting information to stdout for the user
+      (if any issues are detected)
+    - return the number of files that have style issues.
 """
 import inspect
 import re
@@ -138,7 +141,7 @@ class Lint(object):
                 print(out)
 
             # get exit status from flake8
-            non_zero_exits += pipe.returncode
+            non_zero_exits += (1 if out else 0)
 
         return non_zero_exits
 
