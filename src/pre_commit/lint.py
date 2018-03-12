@@ -8,7 +8,8 @@ Adding linters for other languages is easy: just add a new
 
 A "lint_<language_name>" method must implement the following behavior:
 1) accept a list of file paths as input
-2) select only the files that are relevant to the language being checked
+2) select only the files that are relevant to the language that is being
+   checked
 3) produce two pieces of output:
     - send all linting information to stdout for the user
       (if any issues are detected)
