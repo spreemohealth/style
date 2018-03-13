@@ -42,6 +42,10 @@ class Linter(object):
     def lint(self):
         """
         Main method to perform linting.
+
+        Returns:
+            An integer, corresponding to the number of files that have linting
+            problems.
         """
         # initialize a counter for files with linting problems
         non_zero_exits = 0
@@ -67,6 +71,12 @@ class PythonLinter(Linter):
     A wrapper for "flake8".
     """
 
+    def __init__(self, dir_content, *args, **kwargs):
+        # get ".py" files from `dir_content`
+        super().__init__(
+            dir_content, ".py", *args, **kwargs
+        )
+
     def create_subprocess(self, f):
         pipe = Popen(
             ["flake8", f],
@@ -80,6 +90,12 @@ class RLinter(Linter):
     """
     A wrapper for "lintr".
     """
+
+    def __init__(self, dir_content, *args, **kwargs):
+        # get ".r" and ".R" files from `dir_content`
+        super().__init__(
+            dir_content, (".r", ".R"), *args, **kwargs
+        )
 
     def create_subprocess(self, f):
         pipe = Popen(

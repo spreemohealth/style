@@ -27,7 +27,10 @@ from os import (
 )
 from tempfile import TemporaryDirectory
 
-from src.pre_commit.git import GitHandle
+from src.pre_commit.git import (
+    GitHandle,
+    RepositoryError
+)
 from src.pre_commit.linters import (
     PythonLinter,
     RLinter
@@ -37,21 +40,31 @@ from src.pre_commit.linters import (
 class Lint(object):
     """
     This class implements all linting operations.
+
+    The main method is `run()`, which executes all available linters.
+    Any method implemented in this class that begins with "lint_" is
+    interpreted as a linter.
     """
 
     def __init__(self, *args, **kwargs):
         # initialize a git handle
-        self.git_handle = GitHandle()
+        try:
+            self.git_handle = GitHandle()
+        except RepositoryError:
+            print(
+                "You can't initialize a Lint object outside of "
+                "a git repository!")
+            raise
 
         # get staged files
         self.staged_files_paths = self.git_handle.get_staged_files_paths()
 
         # check that paths and file names are ok
         for _path in self.staged_files_paths:
-            self.git_handle.check_staged_file_path_is_allowed(_path)
+            self.git_handle._check_staged_file_path_is_allowed(_path)
 
         # get the root of the project
-        self.root = self.git_handle.get_git_root()
+        self.root = self.git_handle.root
 
         # get the available linters
         self.linters = self._get_linters()
@@ -75,6 +88,10 @@ class Lint(object):
     def run(self):
         """
         Main method that executes all of the available linters.
+
+        Returns:
+            An integer corresponding to the number of staged files with
+            linting problems.
         """
         # create a temporary directory
         tmp_dir = TemporaryDirectory()
@@ -128,11 +145,13 @@ class Lint(object):
     def lint_python(self, dir_content):
         """
         Linter method for Python.
+        See the `src.pre_commit.linters` module for additional details.
         """
-        return PythonLinter(dir_content=dir_content, extension=".py").lint()
+        return PythonLinter(dir_content).lint()
 
     def lint_r(self, dir_content):
         """
         Linter method for R.
+        See the `src.pre_commit.linters` module for additional details.
         """
-        return RLinter(dir_content=dir_content, extension=(".r", ".R")).lint()
+        return RLinter(dir_content).lint()
