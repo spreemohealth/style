@@ -106,8 +106,6 @@ class GitHandle(object):
         )
         out, err = pipe.communicate()
 
-        out = out.decode("utf-8")
-
         return out
 
     def check_staged_file_path_is_allowed(self, staged_file_path):

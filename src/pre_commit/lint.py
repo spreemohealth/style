@@ -96,7 +96,7 @@ class Lint(object):
             # write content of staged file to a temporary file and
             # collect relative path in the list
             tmp_file_path = path.join(tmp_dir.name, rel_path)
-            with open(tmp_file_path, "w") as tmp_file:
+            with open(tmp_file_path, "wb") as tmp_file:
                 content = self.git_handle.get_staged_file_content(rel_path)
                 tmp_file.write(content)
                 files_in_tmp_dir.append(
