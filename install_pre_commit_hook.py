@@ -80,8 +80,9 @@ for repo in repos:
 
     else:
         print(
-            "\nAborting installation on repository %s.\n"
-            "I can't find the '.git/hooks/' subdirectory." % repo
+            "\nAborting installation on %s.\n"
+            "I can't find the '.git/hooks/' subdirectory.\n"
+            "Are you sure this is a git repository?" % repo
         )
 
 #
