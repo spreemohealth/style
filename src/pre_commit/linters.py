@@ -84,7 +84,7 @@ class RLinter(Linter):
     def create_subprocess(self, f):
         pipe = Popen(
             [
-                "R", "--slave", "--vanilla",
+                "Rscript", "--slave", "--vanilla",
                 "-e", "lintr::lint('%s')" % f
             ],
             stdout=PIPE,

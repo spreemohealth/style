@@ -40,7 +40,7 @@ class GitHandle(object):
         out, err = pipe.communicate()
 
         # strip the trailing '\n' from the path
-        root = out.decode('utf-8').rstrip('\n')
+        root = out.decode('utf-8')[:-1]
         root_path = path.abspath(root)
 
         return root_path
@@ -57,7 +57,7 @@ class GitHandle(object):
         out, err = pipe.communicate()
 
         # strip the trailing '\n'
-        head_hash = out.decode('utf-8').rstrip('\n')
+        head_hash = out.decode('utf-8')[:-1]
 
         # use the special hash if there is no HEAD
         if not head_hash:
@@ -80,8 +80,7 @@ class GitHandle(object):
 
         staged_files = (
             out
-            .decode('utf-8')
-            .rstrip('\n')    # remove trailing '\n'
+            .decode('utf-8')[:-1]    # remove trailing '\n'
             .split('\n')
         )
 
@@ -106,6 +105,8 @@ class GitHandle(object):
             stderr=PIPE
         )
         out, err = pipe.communicate()
+
+        out = out.decode("utf-8")
 
         return out
 
