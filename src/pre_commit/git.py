@@ -10,6 +10,8 @@ from subprocess import (
     PIPE
 )
 
+from src.pre_commit.util import exec_in_dir
+
 
 class GitError(Exception):
     pass
@@ -35,9 +37,17 @@ class GitHandle(object):
     context of linting staged files.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, path=None, *args, **kwargs):
+        """
+        Args:
+            path: an absolute path to the root or a subdirectory of a git
+                repository.
+        """
+        # get path argument
+        self.path = path
         # get repository root
-        self.root = self._get_git_root()
+        with exec_in_dir(self.path):
+            self.root = self._get_git_root()
 
     def _get_git_root(self):
         """
@@ -84,21 +94,22 @@ class GitHandle(object):
         Returns:
             A string with the current HEAD's hash.
         """
-        pipe = Popen(
-            ["git", "rev-parse", "--verify", "HEAD"],
-            stdout=PIPE,
-            stderr=PIPE
-        )
-        out, err = pipe.communicate()
+        with exec_in_dir(self.root):
+            pipe = Popen(
+                ["git", "rev-parse", "--verify", "HEAD"],
+                stdout=PIPE,
+                stderr=PIPE
+            )
+            out, err = pipe.communicate()
 
-        # strip the trailing '\n'
-        head_hash = out.decode('utf-8')[:-1]
+            # strip the trailing '\n'
+            head_hash = out.decode('utf-8')[:-1]
 
-        # use the special hash if there is no HEAD
-        if not head_hash:
-            head_hash = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+            # use the special hash if there is no HEAD
+            if not head_hash:
+                head_hash = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
-        return head_hash
+            return head_hash
 
     def get_staged_files_paths(self):
         """
@@ -110,46 +121,48 @@ class GitHandle(object):
         """
         head_hash = self.get_head_hash()
 
-        pipe = Popen(
-            ["git", "diff", "--cached", "--name-only", head_hash],
-            stdout=PIPE,
-            stderr=PIPE
-        )
-        out, err = pipe.communicate()
+        with exec_in_dir(self.root):
 
-        staged_files = (
-            out
-            .decode('utf-8')[:-1]    # remove trailing '\n'
-            .split('\n')
-        )
+            pipe = Popen(
+                ["git", "diff", "--cached", "--name-only", head_hash],
+                stdout=PIPE,
+                stderr=PIPE
+            )
+            out, err = pipe.communicate()
 
-        # drop nulls produce by split, if any
-        staged_files = [file for file in staged_files if file]
+            staged_files = (
+                out
+                .decode('utf-8')[:-1]    # remove trailing '\n'
+                .split('\n')
+            )
 
-        staged_files_paths = [
-            path.abspath(file) for file in staged_files
-        ]
+            # drop nulls produce by split, if any
+            staged_files = [file for file in staged_files if file]
 
-        return staged_files_paths
+            staged_files_paths = [
+                path.abspath(file) for file in staged_files
+            ]
+
+            return staged_files_paths
 
     def get_staged_file_content(self, staged_file_path):
         """
         Gets the contents of a given staged file.
 
         Args:
-            staged_file_path: the path of a file that is
-                currently staged.
+            staged_file_path: the path of a file that is currently staged.
 
         Returns:
             A byte literal corresponding to the contents of the staged file.
         """
         # quote the staged_file name or path in order to take care of
         # escaping in the shell
-        pipe = Popen(
-            ["git", "show", ":%s" % staged_file_path],
-            stdout=PIPE,
-            stderr=PIPE
-        )
-        out, err = pipe.communicate()
+        with exec_in_dir(self.root):
+            pipe = Popen(
+                ["git", "show", ":%s" % staged_file_path],
+                stdout=PIPE,
+                stderr=PIPE
+            )
+            out, err = pipe.communicate()
 
-        return out
+            return out

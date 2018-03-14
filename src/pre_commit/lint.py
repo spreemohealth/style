@@ -20,8 +20,6 @@ import inspect
 import re
 
 from os import (
-    chdir,
-    getcwd,
     makedirs,
     path
 )
@@ -35,6 +33,7 @@ from src.pre_commit.linters import (
     PythonLinter,
     RLinter
 )
+from src.pre_commit.util import exec_in_dir
 
 
 class Lint(object):
@@ -46,10 +45,15 @@ class Lint(object):
     interpreted as a linter.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, path=None, *args, **kwargs):
+        """
+        Args:
+            path: an absolute path to the root or a subdirectory of a git
+                repository.
+        """
         # initialize a git handle
         try:
-            self.git_handle = GitHandle()
+            self.git_handle = GitHandle(path=path)
         except RepositoryError:
             print(
                 "You can't initialize a Lint object outside of "
@@ -127,20 +131,15 @@ class Lint(object):
         # not changing directory can cause the paths to be interpreted
         # relatively to the git repository root, which can cause the linters
         # to run on the version of the files that is currently in the tree!
-        cwd = getcwd()
-        chdir(tmp_dir.name)
+        with exec_in_dir(tmp_dir.name):
+            # initialize a counter to count how many linters return a non-zero
+            # exit status
+            non_zero_linters = 0
+            for linter in self.linters:
+                # run the linters
+                non_zero_linters += linter(files_in_tmp_dir)
 
-        # initialize a counter to count how many linters return a non-zero
-        # exit status
-        non_zero_linters = 0
-        for linter in self.linters:
-            # run the linters
-            non_zero_linters += linter(files_in_tmp_dir)
-
-        # change directory back to original current directory
-        chdir(cwd)
-
-        return non_zero_linters
+            return non_zero_linters
 
     def lint_python(self, dir_content):
         """
