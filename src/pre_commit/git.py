@@ -122,7 +122,6 @@ class GitHandle(object):
         head_hash = self.get_head_hash()
 
         with exec_in_dir(self.root):
-
             pipe = Popen(
                 ["git", "diff", "--cached", "--name-only", head_hash],
                 stdout=PIPE,
