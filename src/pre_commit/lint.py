@@ -25,10 +25,7 @@ from os import (
 )
 from tempfile import TemporaryDirectory
 
-from src.pre_commit.git import (
-    GitHandle,
-    RepositoryError
-)
+from src.pre_commit.git import GitHandle
 from src.pre_commit.linters import (
     PythonLinter,
     RLinter
@@ -52,23 +49,7 @@ class Lint(object):
                 repository.
         """
         # initialize a git handle
-        try:
-            self.git_handle = GitHandle(path=path)
-        except RepositoryError:
-            print(
-                "You can't initialize a Lint object outside of "
-                "a git repository!")
-            raise
-
-        # get staged files
-        self.staged_files_paths = self.git_handle.get_staged_files_paths()
-
-        # check that paths and file names are ok
-        for _path in self.staged_files_paths:
-            self.git_handle._check_staged_file_path_is_allowed(_path)
-
-        # get the root of the project
-        self.root = self.git_handle.root
+        self.git_handle = GitHandle(path=path)
 
         # get the available linters
         self.linters = self._get_linters()
@@ -97,14 +78,22 @@ class Lint(object):
             An integer corresponding to the number of staged files with
             linting problems.
         """
-        # create a temporary directory
-        tmp_dir = TemporaryDirectory()
+        # get staged files
+        staged_files_paths = self.git_handle.get_staged_files_paths()
+
+        # check that paths and file names are ok
+        for _path in staged_files_paths:
+            self.git_handle._check_staged_file_path_is_allowed(_path)
 
         # get the paths of the staged files, relative to the root of the git
         # repository
         staged_files_rel_paths = [
-            path.relpath(file, self.root) for file in self.staged_files_paths
+            path.relpath(file, self.git_handle.root)
+            for file in staged_files_paths
         ]
+
+        # create a temporary directory
+        tmp_dir = TemporaryDirectory()
 
         # write the content of the staged files to temporary files
         files_in_tmp_dir = []    # list to collect rel path of temporary files

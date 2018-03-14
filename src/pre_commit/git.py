@@ -43,10 +43,8 @@ class GitHandle(object):
             path: an absolute path to the root or a subdirectory of a git
                 repository.
         """
-        # get path argument
-        self.path = path
         # get repository root
-        with exec_in_dir(self.path):
+        with exec_in_dir(path):
             self.root = self._get_git_root()
 
     def _get_git_root(self):
