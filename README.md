@@ -86,7 +86,7 @@ This section explains how to do this for the supported languages (more details c
 
 ![shudders](https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif)
 
-#### Python - `markdownlint-cli`
+#### Markdown - `markdownlint-cli`
 Code in a block like the following
 ```markdown
 <!-- markdownlint-disable -->
