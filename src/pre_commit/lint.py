@@ -135,11 +135,11 @@ class Lint(object):
         Linter method for Python.
         See the `src.pre_commit.linters` module for additional details.
         """
-        return PythonLinter(dir_content).lint()
+        return PythonLinter().lint(dir_content)
 
     def lint_r(self, dir_content):
         """
         Linter method for R.
         See the `src.pre_commit.linters` module for additional details.
         """
-        return RLinter(dir_content).lint()
+        return RLinter().lint(dir_content)
