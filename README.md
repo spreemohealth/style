@@ -18,8 +18,9 @@ This repository contains code used to manage and enforce style/code checking in 
 ---
 
 Currently, this hook performs code checking on your commits for the following languages:
-- **Python** (i.e. `.py` files), using `flake8`
-- **R** (i.e. `.r` or `.R` files), using `lintr`.
+- **Markdown** (i.e. `.md` files), using [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli)
+- **Python** (i.e. `.py` files), using [`flake8`](https://github.com/PyCQA/flake8)
+- **R** (i.e. `.r` or `.R` files), using [`lintr`](https://github.com/jimhester/lintr).
 
 In short, the hook works as follows: *if you commit code that does not pass the inspection, your commit will be rejected.*
 When this happens, simply make the appropriate edits to your code and commit again.
@@ -31,19 +32,26 @@ When this happens, simply make the appropriate edits to your code and commit aga
    *Note that in this example, `python` and `pip` point to my Homebrew Python 3 distribution.*
    *If you are using a different distribution, please make the appropriate changes in the commands that follow.*
 
-2. Make sure that the Python `flake8` module is installed for Python 3:
-   ```bash
-   pip install flake8 --upgrade
-   ```
+2. Make sure that the following are installed on your system:
 
-3. Make sure that the R `lintr` package is installed:
-   ```bash
-   R -e "install.packages('lintr', repos='https://cloud.r-project.org')"
-   ```
+   - `markdownlint-cli`:
+      ```bash
+      npm install -g markdownlint-cli
+      ```
 
-4. Clone this repository on your system (say in `~/Git/style`) and `cd` into it.
+   - the Python `flake8` module (for Python 3):
+      ```bash
+      pip install flake8 --upgrade
+      ```
 
-5. Run the installer on the target repository (e.g. `~/Git/my-linty-repo` in the following example):
+   - the R `lintr` package:
+      ```bash
+      R -e "install.packages('lintr', repos='https://cloud.r-project.org')"
+      ```
+
+3. Clone this repository on your system (say in `~/Git/style`) and `cd` into it.
+
+4. Run the installer on the target repository (e.g. `~/Git/my-linty-repo` in the following example):
    ```bash
    python install_pre_commit_hook ~/Git/my-linty-repo
    ```
@@ -53,7 +61,7 @@ When this happens, simply make the appropriate edits to your code and commit aga
    python install_pre_commit_hook ~/Git/my-linty-repo ~/Git/my-linty-repo2 ... 
    ```
 
-6. Your pre-commit hook should now be correctly configured.
+5. Your pre-commit hook should now be correctly configured.
 
 ### Adding linters
 Adding support for additional programming languages is relatively straightforward.
@@ -67,7 +75,7 @@ A linter is expected to:
    2. return the number of files that have style issues.
 
 Note that the `Linter` class in `src.pre_commit.linters` can be used as a wrapper for linters of different programming languages.
-See the implementation of `lint_py` and `lint_r` for more details.
+See the implementation of `lint_md`, `lint_py`, `lint_r` for more details.
 
 ### How to avoid code checking
 Generally, you want *all* of your code to be checked without exceptions.
@@ -77,6 +85,22 @@ This section explains how to do this for the supported languages (more details c
 **Use wisely.**
 
 ![shudders](https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif)
+
+#### Python - `markdownlint-cli`
+Code in a block like the following
+```markdown
+<!-- markdownlint-disable -->
+...CODE...
+<!-- markdownlint-enable -->
+```
+is not checked.
+
+You can exclude specific errors (`MD001` and `MD002` in the example that follows) with:
+```markdown
+<!-- markdownlint-disable MD001 MD002 -->
+...CODE...
+<!-- markdownlint-enable MD001 MD002 -->
+```
 
 #### Python - `flake8`
 You can exclude an entire file from being checked by including the following line at the top of it:

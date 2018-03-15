@@ -27,6 +27,7 @@ from tempfile import TemporaryDirectory
 
 from src.pre_commit.git import GitHandle
 from src.pre_commit.linters import (
+    MarkdownLinter,
     PythonLinter,
     RLinter
 )
@@ -129,6 +130,13 @@ class Lint(object):
                 non_zero_linters += linter(files_in_tmp_dir)
 
             return non_zero_linters
+
+    def lint_md(self, dir_content):
+        """
+        Linter method for Markdown.
+        See the `src.pre_commit.linters` module for additional details.
+        """
+        return MarkdownLinter().lint(dir_content)
 
     def lint_python(self, dir_content):
         """

@@ -7,7 +7,8 @@ You are free to define linters for additional programming languages here.
 """
 from subprocess import (
     Popen,
-    PIPE
+    PIPE,
+    STDOUT
 )
 
 
@@ -31,9 +32,7 @@ class Linter(object):
         )
         return pipe
         ```
-
-        Make sure to set `stdout=PIPE` and `stderr=PIPE` in your
-        implementation.
+        Make sure to send the linter's output to stdout!
         """
         raise NotImplementedError
 
@@ -73,6 +72,24 @@ class Linter(object):
                 non_zero_exits += (1 if out else 0)
 
         return non_zero_exits
+
+
+class MarkdownLinter(Linter):
+    """
+    A wrapper for "markdownlint".
+    """
+
+    extension = ".md"
+
+    def create_subprocess(self, f):
+        pipe = Popen(
+            ["markdownlint", f],
+            stdout=PIPE,
+            # redirect stderr to stdout: markdownlint outputs linting
+            # information to stderr...
+            stderr=STDOUT,
+        )
+        return pipe
 
 
 class PythonLinter(Linter):
