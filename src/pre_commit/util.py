@@ -16,7 +16,7 @@ def exec_in_dir(_dir):
             cwd = getcwd()
             chdir(_dir)
             yield
-        except FileExistsError:
+        except FileNotFoundError:    # noqa F821
             raise
         finally:
             chdir(cwd)
