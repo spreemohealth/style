@@ -113,7 +113,7 @@ can be found in the documentation of the relevant packages).
 
 ![shudders](https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif)
 
-##### Markdown - `markdownlint-cli`
+##### Markdown - `markdownlint`
 
 Code in a block like the following
 
