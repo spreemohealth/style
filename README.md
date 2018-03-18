@@ -184,3 +184,10 @@ b =2
 # this line will raise an error
 x <- c(1,2, 3)
 ```
+
+## Links and references
+
+- [`markdownlint` Markdown style guide](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md)
+- [Python's PEP8 (official)](http://pep8.org);
+  [Python's PEP8 (easier to read)](https://www.python.org/dev/peps/pep-0008/)
+- [Hadley's R style guide](http://r-pkgs.had.co.nz/style.html)
