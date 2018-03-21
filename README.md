@@ -31,7 +31,7 @@ For example:
 > Whether it’s someone else’s code or your own that you are returning to,
 > having a common style greatly reduces maintainability costs.
 
-(source: <https://blog.adeptmarketing.com/how-linting-produces-better-code>)
+(source: <https://blog.adeptmarketing.com/how-linting-produces-better-code>).
 
 `style` allows you to easily install a pre-commit git hook in your local git
 repositories.
