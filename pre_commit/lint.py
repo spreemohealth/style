@@ -138,7 +138,7 @@ class Lint(object):
         """
         return MarkdownLinter().lint(dir_content)
 
-    def lint_python(self, dir_content):
+    def lint_py(self, dir_content):
         """
         Linter method for Python.
         See the `pre_commit.linters` module for additional details.
