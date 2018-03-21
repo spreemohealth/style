@@ -14,7 +14,7 @@ A "lint_<language_name>" method must implement the following behavior:
     - return the number of files that have linting issues.
 
 Note that you can use the `Linter` convenience class in the
-`src.pre_commit.linters` module to implement additional linters.
+`pre_commit.linters` module to implement additional linters.
 """
 import inspect
 import re
@@ -25,13 +25,13 @@ from os import (
 )
 from tempfile import TemporaryDirectory
 
-from src.pre_commit.git import GitHandle
-from src.pre_commit.linters import (
+from pre_commit.git import GitHandle
+from pre_commit.linters import (
     MarkdownLinter,
     PythonLinter,
     RLinter
 )
-from src.pre_commit.util import exec_in_dir
+from pre_commit.util import exec_in_dir
 
 
 class Lint(object):
@@ -134,20 +134,20 @@ class Lint(object):
     def lint_md(self, dir_content):
         """
         Linter method for Markdown.
-        See the `src.pre_commit.linters` module for additional details.
+        See the `pre_commit.linters` module for additional details.
         """
         return MarkdownLinter().lint(dir_content)
 
     def lint_python(self, dir_content):
         """
         Linter method for Python.
-        See the `src.pre_commit.linters` module for additional details.
+        See the `pre_commit.linters` module for additional details.
         """
         return PythonLinter().lint(dir_content)
 
     def lint_r(self, dir_content):
         """
         Linter method for R.
-        See the `src.pre_commit.linters` module for additional details.
+        See the `pre_commit.linters` module for additional details.
         """
         return RLinter().lint(dir_content)

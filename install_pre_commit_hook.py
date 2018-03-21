@@ -52,11 +52,11 @@ for repo in repos:
     if os.path.isdir(target_path):
 
         # copy source to target path (overwriting any previous installation)
-        target_src_dir = os.path.join(target_path, "src")
+        target_src_dir = os.path.join(target_path, "pre_commit")
         if os.path.isdir(target_src_dir):
             shutil.rmtree(target_src_dir)
         shutil.copytree(
-            os.path.join(base_dir, "src"), target_src_dir
+            os.path.join(base_dir, "pre_commit"), target_src_dir
         )
 
         # move the pre-commit hook to top (overwriting any previous
@@ -65,7 +65,7 @@ for repo in repos:
         if os.path.exists(target_pre_commit_hook):
             os.remove(target_pre_commit_hook)
         shutil.move(
-            os.path.join(target_path, "src", "pre_commit", "pre-commit"),
+            os.path.join(target_path, "pre_commit", "pre-commit"),
             os.path.join(target_path, "pre-commit")
         )
         # make the pre-commit file executable

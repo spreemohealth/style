@@ -15,29 +15,30 @@
 This repository contains code used to manage and enforce style/code checking
 in the `spreemohealth` GitHub organization.
 
-### Configuring a pre-commit hook
+In particular, `style`'s main goal is to allow you to easily install a
+pre-commit git hook your local git repositories (although `style` can be also
+used as a standalone Python module).
 
-**This section explains how to configure a client-level pre-commit hook for**
-**a target Git repository.**
-
----
-
-Currently, this hook performs code checking on your commits for the following
-languages:
-
-- **Markdown** (i.e. `.md` files), using
-  [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli)
-- **Python** (i.e. `.py` files), using
-  [`flake8`](https://github.com/PyCQA/flake8)
-- **R** (i.e. `.r` or `.R` files), using
-  [`lintr`](https://github.com/jimhester/lintr).
-
-In short, the hook works as follows: *if you commit code that does not pass*
+The hook works as follows: *if you commit code that does not pass*
 *the inspection, your commit will be rejected.*
 When this happens, simply make the appropriate edits to your code and commit
 again.
 
----
+## Languages
+
+Currently, style performs code checking on your commits that involve the
+following languages:
+
+- **Markdown** (i.e. `.md` files), using
+  [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli)
+
+- **Python** (i.e. `.py` files), using
+  [`flake8`](https://github.com/PyCQA/flake8)
+
+- **R** (i.e. `.r` or `.R` files), using
+  [`lintr`](https://github.com/jimhester/lintr).
+
+## Installing the pre-commit hook
 
 1. Please make sure that Python 3 and R are both installed on your system.
 
@@ -68,54 +69,62 @@ again.
 
 4. Run the installer on the target repository (e.g. `~/Git/my-linty-repo` in
    the following example):
+
    ```bash
    python install_pre_commit_hook ~/Git/my-linty-repo
    ```
 
    If you want, you can perform the installation on more than one target
    repository:
+
    ```bash
    python install_pre_commit_hook ~/Git/my-linty-repo ~/Git/my-linty-repo2 ...
    ```
 
 5. Your pre-commit hook should now be correctly configured.
 
-#### Adding linters
+## Adding more linters
 
 Adding support for additional programming languages is relatively
 straightforward.
 You just have to add a `lint_<language>` method to the `Lint` class in the
-`src.pre_commit.lint` module.
+`pre_commit.lint` module.
 
 A linter is expected to:
 
 - accept a single input: *a list of file paths*, corresponding to files that
   are in the git staging area
+
 - select only the files that are relevant to the language being checked
+
 - produce two pieces of output:
+
    1. send all linting information to stdout for the user (if any issues are
       detected)
+
    2. return the number of files that have style issues.
 
-Note that the `Linter` class in `src.pre_commit.linters` can be used as a
-wrapper for linters of different programming languages.
-See the implementation of `lint_md`, `lint_py`, `lint_r` for more details.
+Note that the `Linter` class in `pre_commit.linters` can be used as a
+to extend `style` and support a variety of linters for different programming
+languages.
 
-#### How to avoid code checking
+## How to avoid code checking
 
 Generally, you want *all* of your code to be checked without exceptions.
 However, there may be special circumstances under which you may desire to
 exclude a line or a block of code from being checked.
-This section explains how to do this for the supported languages (more details
-can be found in the documentation of the relevant packages).
 
-**Use wisely.**
+This section illustrates some ways of selectively excluding portions of your
+code from being checked.
+Please refer to the documentation of the relevant packages for more details.
+
+**Use wisely!**
 
 ![shudders](https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif)
 
-##### Markdown - `markdownlint`
+### Markdown - `markdownlint`
 
-Code in a block like the following
+Code in a block like this one
 
 ```markdown
 <!-- markdownlint-disable -->
@@ -134,7 +143,7 @@ follows) with:
 <!-- markdownlint-enable MD001 MD002 -->
 ```
 
-##### Python - `flake8`
+### Python - `flake8`
 
 You can exclude an entire file from being checked by including the following
 line at the top of it:
@@ -155,9 +164,9 @@ b =2 # noqa
 ```
 
 You can exclude specific errors on a line with `# noqa: <error>`,
-   e.g. `# noqa: E234`.
+e.g. `# noqa: E234`.
 
-##### R - `lintr`
+### R - `lintr`
 
 Use the `# nolint` inline comment to exclude a given line:
 
@@ -188,6 +197,8 @@ x <- c(1,2, 3)
 ## Links and references
 
 - [`markdownlint` Markdown style guide](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md)
+
 - [Python's PEP8 (official)](http://pep8.org);
   [Python's PEP8 (easier to read)](https://www.python.org/dev/peps/pep-0008/)
+
 - [Hadley's R style guide](http://r-pkgs.had.co.nz/style.html)
