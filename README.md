@@ -12,30 +12,49 @@
 
 ## Purpose of this repository
 
-This repository contains code used to manage and enforce style/code checking
-in the `spreemohealth` GitHub organization.
+`style` is a small repository designed to encourage style and code checking.
 
-In particular, `style`'s main goal is to allow you to easily install a
-pre-commit git hook your local git repositories (although `style` can be also
-used as a standalone Python module).
+"But why?", you ask.
 
-The hook works as follows: *if you commit code that does not pass*
-*the inspection, your commit will be rejected.*
-When this happens, simply make the appropriate edits to your code and commit
-again.
+The short answer is code maintainability (although maintainability is not the
+only reason why you should
+[lint](https://en.wikipedia.org/wiki/Lint_(software))
+your code).
+
+You'll find many articles on the web discussing the advantages of code linting.
+For example:
+
+> Reading code written in an unfamiliar style is like reading poor handwriting.
+> The information is all there, but it requires inordinate concentration
+> simply to extract to it. Conversely, reading code that adheres to a familiar
+> style allows you to focus on what is important.
+> Whether it’s someone else’s code or your own that you are returning to,
+> having a common style greatly reduces maintainability costs.
+
+(source: <https://blog.adeptmarketing.com/how-linting-produces-better-code>)
+
+`style` allows you to easily install a pre-commit git hook in your local git
+repositories.
+
+The hook works as follows:
+
+1. You commit your code.
+2. A series of linters are run on your code.
+3. If the linters find that there is something wrong with your code,
+   your commit is rejected. In this case, simply make the appropriate edits
+   and commit again.
 
 ## Languages
 
-Currently, style performs code checking on your commits that involve the
-following languages:
+Currently, `style` performs code checking on file written in
 
-- **Markdown** (i.e. `.md` files), using
+- **Markdown** (`.md` files), using
   [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli)
 
-- **Python** (i.e. `.py` files), using
+- **Python** (`.py` files), using
   [`flake8`](https://github.com/PyCQA/flake8)
 
-- **R** (i.e. `.r` or `.R` files), using
+- **R** (`.r` or `.R` files), using
   [`lintr`](https://github.com/jimhester/lintr).
 
 ## Installing the pre-commit hook
@@ -83,10 +102,9 @@ following languages:
 
 5. Your pre-commit hook should now be correctly configured.
 
-## Adding more linters
+## Adding support for more linters
 
-Adding support for additional programming languages is relatively
-straightforward.
+Adding support for linters of other programming languages is straightforward.
 You just have to add a `lint_<language>` method to the `Lint` class in the
 `pre_commit.lint` module.
 
@@ -104,9 +122,10 @@ A linter is expected to:
 
    2. return the number of files that have style issues.
 
-Note that the `Linter` class in `pre_commit.linters` can be used as a
-to extend `style` and support a variety of linters for different programming
-languages.
+Note that the `Linter` class in `pre_commit.linters` can be used to add
+support for a variety of linters.
+For example, see the implementation of the `lint_py` method of the `Lint` class
+inside of the `pre_commit.lint` module.
 
 ## How to avoid code checking
 
@@ -194,9 +213,9 @@ b =2
 x <- c(1,2, 3)
 ```
 
-## Links and references
+## Useful links
 
-- [`markdownlint` Markdown style guide](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md)
+- [`markdownlint`'s Markdown style guide](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md)
 
 - [Python's PEP8 (official)](http://pep8.org);
   [Python's PEP8 (easier to read)](https://www.python.org/dev/peps/pep-0008/)
