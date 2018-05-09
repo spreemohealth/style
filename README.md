@@ -104,28 +104,8 @@ Currently, `style` performs code checking on file written in
 
 ## Adding support for more linters
 
-Adding support for linters of other programming languages is straightforward.
-You just have to add a `lint_<language>` method to the `Lint` class in the
-`pre_commit.lint` module.
-
-A linter is expected to:
-
-- accept a single input: *a list of file paths*, corresponding to files that
-  are in the git staging area
-
-- select only the files that are relevant to the language being checked
-
-- produce two pieces of output:
-
-   1. send all linting information to stdout for the user (if any issues are
-      detected)
-
-   2. return the number of files that have style issues.
-
-Note that the `Linter` class in `pre_commit.linters` can be used to add
-support for a variety of linters.
-For example, see the implementation of the `lint_py` method of the `Lint` class
-inside of the `pre_commit.lint` module.
+You can leverage the `Linter` class in `style.pre_commit.linters` to add
+support for a variety of additional linters.
 
 ## How to avoid code checking
 
