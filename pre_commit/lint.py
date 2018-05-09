@@ -2,36 +2,17 @@
 """
 This module is where all of the linting logic is defined.
 
-Adding linters for additional languages is easy: just add a new
-"lint_<language_name>" method to the `Lint` class.
-
-A "lint_<language_name>" method must implement the following behavior:
-1) accept a list of file paths as input
-2) select only the files that are relevant to <language_name>
-   (e.g. by looking at file extensions that relate to <language_name>)
-3) produce two pieces of output:
-    - send all linting information to stdout (if any issues are detected)
-    - return the number of files that have linting issues.
-
 Note that you can use the `Linter` convenience class in the
-`pre_commit.linters` module to implement additional linters.
+`style.pre_commit.linters` module to implement additional linters.
 """
-import inspect
-import re
-
 from os import (
     makedirs,
     path
 )
 from tempfile import TemporaryDirectory
 
-from pre_commit.git import GitHandle
-from pre_commit.linters import (
-    MarkdownLinter,
-    PythonLinter,
-    RLinter
-)
-from pre_commit.util import exec_in_dir
+from style.pre_commit.linters import Linter
+from style.pre_commit.util import exec_in_dir
 
 
 class Lint(object):
@@ -39,35 +20,26 @@ class Lint(object):
     This class implements all linting operations.
 
     The main method is `run()`, which executes all available linters.
-    Any method implemented in this class that begins with "lint_" is
-    interpreted as a linter.
     """
 
-    def __init__(self, path=None, *args, **kwargs):
+    def __init__(self, git_handle, linters, **kwargs):
         """
         Args:
-            path: an absolute path to the root or a subdirectory of a git
-                repository.
+            git_handle: a `GitHandle` instance for the repository of interest
+            linters: an iterable of `Linter` objects
+            (see `style.pre_commit.linters`).
         """
-        # initialize a git handle
-        self.git_handle = GitHandle(path=path)
+        # get the input git handle
+        self.git_handle = git_handle
 
         # get the available linters
-        self.linters = self._get_linters()
+        self.linters = self._get_linters(linters)
 
-    def _get_linters(self):
+    def _get_linters(self, linters):
         """
-        Discovers all available linters from the class methods.
-
-        Any method implemented in this class that begins with "lint_" is
-        interpreted as a linter.
-
-        Please follow the naming convention "lint_<language_name>" if you
-        implement additional linters.
+        Discovers all available linters.
         """
-        methods = inspect.getmembers(self, predicate=inspect.ismethod)
-        regex = "lint_.+"
-        linters = [m[1] for m in methods if re.search(regex, m[0])]
+        linters = [ell for ell in linters if isinstance(ell, Linter)]
 
         return linters
 
@@ -127,27 +99,6 @@ class Lint(object):
             non_zero_linters = 0
             for linter in self.linters:
                 # run the linters
-                non_zero_linters += linter(files_in_tmp_dir)
+                non_zero_linters += linter.lint(files_in_tmp_dir)
 
             return non_zero_linters
-
-    def lint_md(self, dir_content):
-        """
-        Linter method for Markdown.
-        See the `pre_commit.linters` module for additional details.
-        """
-        return MarkdownLinter().lint(dir_content)
-
-    def lint_py(self, dir_content):
-        """
-        Linter method for Python.
-        See the `pre_commit.linters` module for additional details.
-        """
-        return PythonLinter().lint(dir_content)
-
-    def lint_r(self, dir_content):
-        """
-        Linter method for R.
-        See the `pre_commit.linters` module for additional details.
-        """
-        return RLinter().lint(dir_content)
