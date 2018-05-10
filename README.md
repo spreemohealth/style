@@ -187,6 +187,9 @@ follows) with:
 <!-- markdownlint-enable MD001 MD002 -->
 ```
 
+More configuration options can be specified with e.g.
+[a `.mdlrc` file](https://github.com/markdownlint/markdownlint/blob/master/docs/configuration.md#mdl-configuration).
+
 ### Python - `flake8`
 
 You can exclude an entire file from being checked by including the following
@@ -209,6 +212,9 @@ b =2 # noqa
 
 You can exclude specific errors on a line with `# noqa: <error>`,
 e.g. `# noqa: E234`.
+
+More configuration options can be specified with e.g.
+[a `.flake8` file](http://flake8.pycqa.org/en/latest/user/configuration.html).
 
 ### R - `lintr`
 
@@ -237,6 +243,9 @@ b =2
 # this line will raise an error
 x <- c(1,2, 3)
 ```
+
+More configuration options can be specified with e.g.
+[a `.lintr` file](https://github.com/jimhester/lintr#project-configuration).
 
 ## Useful links
 
