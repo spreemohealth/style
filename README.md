@@ -90,14 +90,14 @@ Currently, `style` performs code checking on file written in
    the following example):
 
    ```bash
-   python install ~/Git/my-linty-repo
+   python install.py ~/Git/my-linty-repo
    ```
 
    If you want, you can perform the installation on more than one target
    repository:
 
    ```bash
-   python install ~/Git/my-linty-repo ~/Git/my-linty-repo2 ...
+   python install.py ~/Git/my-linty-repo ~/Git/my-linty-repo2 ...
    ```
 
    By default, the installation activates all available linters.
@@ -108,21 +108,29 @@ Currently, `style` performs code checking on file written in
    in `~/Git/my-linty-repo` you can run
 
    ```bash
-   python install -p ~/Git/my-linty-repo
+   python install.py -p ~/Git/my-linty-repo
    ```
 
    or, to activate the Markdown and the Python linter, but not the R linter,
    you can run
 
    ```bash
-   python install -m -p ~/Git/my-linty-repo
+   python install.py -m -p ~/Git/my-linty-repo
    ```
 
    or
 
    ```bash
-   python install -mp ~/Git/my-linty-repo
+   python install.py -mp ~/Git/my-linty-repo
    ```
+
+   Run
+
+   ```bash
+   python install.py -h
+   ```
+
+   to display all installation options.
 
 ## Uninstalling the pre-commmit hook
 
