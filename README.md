@@ -124,8 +124,6 @@ Currently, `style` performs code checking on file written in
    python install_pre_commit_hook -mp ~/Git/my-linty-repo
    ```
 
-5. Your pre-commit hook should now be correctly configured.
-
 ## Adding support for more linters
 
 You can leverage the `Linter` class in
