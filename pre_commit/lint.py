@@ -3,7 +3,7 @@
 This module is where all of the linting logic is defined.
 
 Note that you can use the `Linter` convenience class in the
-`style.pre_commit.linters` module to implement additional linters.
+`pre_commit.linters` module to implement additional linters.
 """
 from os import (
     makedirs,
@@ -11,8 +11,8 @@ from os import (
 )
 from tempfile import TemporaryDirectory
 
-from style.pre_commit.linters import Linter
-from style.pre_commit.util import exec_in_dir
+from pre_commit.linters import Linter
+from pre_commit.util import exec_in_dir
 
 
 class Lint(object):
@@ -27,7 +27,7 @@ class Lint(object):
         Args:
             git_handle: a `GitHandle` instance for the repository of interest
             linters: an iterable of `Linter` objects
-            (see `style.pre_commit.linters`).
+            (see `pre_commit.linters`).
         """
         # get the input git handle
         self.git_handle = git_handle

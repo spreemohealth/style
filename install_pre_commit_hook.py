@@ -11,7 +11,8 @@ from argparse import ArgumentParser
 #
 parser = ArgumentParser(
     description="Install the 'style' pre-commit hook in one or multiple "
-    "repositories."
+    "repositories. Unless otherwise specified, all available linters are "
+    "activated."
 )
 
 parser.add_argument(
@@ -21,7 +22,32 @@ parser.add_argument(
     nargs="+",
     help="a target git repository")
 
+parser.add_argument(
+    "-m",
+    action="store_true",
+    help="Enable the Markdown linter?"
+)
+
+parser.add_argument(
+    "-p",
+    action="store_true",
+    help="Enable the Python linter?"
+)
+
+parser.add_argument(
+    "-r",
+    action="store_true",
+    help="Enable the R linter?"
+)
+
 args = parser.parse_args()
+
+# if the user did not select a subset of linters to activate, default to
+# activating all of the available linters
+if not any([args.m, args.p, args.r]):
+    args.m = True
+    args.p = True
+    args.r = True
 
 #
 # Get absolute paths of the parsed repositories
@@ -74,6 +100,16 @@ for repo in repos:
             target_pre_commit_hook,
             current_target_pre_commit_hook_stat.st_mode | stat.S_IEXEC
         )
+
+        # write a configuration file for the linters that the user decided
+        # to enable
+        with open(
+            os.path.join(target_path, "pre_commit", "linters.conf"), "w"
+        ) as conf_file:
+            conf_file.write("[linters]\n")
+            conf_file.write("markdown = %s\n" % args.m)
+            conf_file.write("python = %s\n" % args.p)
+            conf_file.write("r = %s\n" % args.r)
 
         # mark installation as successful
         summary_dict[repo] = True

@@ -1,12 +1,45 @@
 #!/usr/bin/env python3
+from os import (
+    path,
+    getcwd
+)
 import sys
 
-from style.pre_commit.git import GitHandle
-from style.pre_commit.lint import Lint
+from pre_commit.git import GitHandle
+from pre_commit.lint import Lint
+from pre_commit.linters import (
+    MarkdownLinter,
+    PythonLinter,
+    RLinter
+)
+from pre_commit.util import get_config
+
+# parse linters configuration file and create `linters` argument for `Lint()`
+available_linters = {
+    "markdown": MarkdownLinter(),
+    "python": PythonLinter(),
+    "r": RLinter()
+}
+
+linters = []
+
+for k, v in available_linters.items():
+    value = get_config(
+        "linters", k, path.join(
+            getcwd(),
+            ".git",
+            "hooks",
+            "pre_commit",
+            "linters.conf"
+        )
+    )
+    if value == "True":
+        linters.append(v)
 
 # set no traceback in error messages
 sys.tracebacklimit = 0
 
+# execute linting
 sys.exit(
-    Lint(GitHandle()).run()
+    Lint(git_handle=GitHandle(), linters=linters).run()
 )

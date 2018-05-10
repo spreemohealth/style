@@ -100,6 +100,30 @@ Currently, `style` performs code checking on file written in
    python install_pre_commit_hook ~/Git/my-linty-repo ~/Git/my-linty-repo2 ...
    ```
 
+   By default, the installation activates all available linters.
+   Alternatively, you can select which linters you want to activate by means
+   of short flags.
+
+   For instance, in order to activate only the Python linter
+   in `~/Git/my-linty-repo` you can run
+
+   ```bash
+   python install_pre_commit_hook -p ~/Git/my-linty-repo
+   ```
+
+   or, to activate the Markdown and the Python linter, but not the R linter,
+   you can run
+
+   ```bash
+   python install_pre_commit_hook -m -p ~/Git/my-linty-repo
+   ```
+
+   or
+
+   ```bash
+   python install_pre_commit_hook -mp ~/Git/my-linty-repo
+   ```
+
 5. Your pre-commit hook should now be correctly configured.
 
 ## Adding support for more linters

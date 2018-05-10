@@ -10,7 +10,7 @@ from subprocess import (
     PIPE
 )
 
-from style.pre_commit.util import exec_in_dir
+from pre_commit.util import exec_in_dir
 
 
 class GitError(Exception):
