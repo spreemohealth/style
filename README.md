@@ -187,8 +187,9 @@ follows) with:
 <!-- markdownlint-enable MD001 MD002 -->
 ```
 
-More configuration options can be specified with e.g.
-[a `.mdlrc` file](https://github.com/markdownlint/markdownlint/blob/master/docs/configuration.md#mdl-configuration).
+More configuration options can be specified with e.g. a
+[`.mdlrc`](https://github.com/markdownlint/markdownlint/blob/master/docs/configuration.md#mdl-configuration)
+file.
 
 ### Python - `flake8`
 
@@ -213,8 +214,8 @@ b =2 # noqa
 You can exclude specific errors on a line with `# noqa: <error>`,
 e.g. `# noqa: E234`.
 
-More configuration options can be specified with e.g.
-[a `.flake8` file](http://flake8.pycqa.org/en/latest/user/configuration.html).
+More configuration options can be specified with e.g. a
+[`.flake8`](http://flake8.pycqa.org/en/latest/user/configuration.html) file.
 
 ### R - `lintr`
 
@@ -244,8 +245,8 @@ b =2
 x <- c(1,2, 3)
 ```
 
-More configuration options can be specified with e.g.
-[a `.lintr` file](https://github.com/jimhester/lintr#project-configuration).
+More configuration options can be specified with e.g. a
+[`.lintr`](https://github.com/jimhester/lintr#project-configuration) file.
 
 ## Useful links
 
