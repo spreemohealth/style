@@ -124,6 +124,20 @@ Currently, `style` performs code checking on file written in
    python install -mp ~/Git/my-linty-repo
    ```
 
+## Uninstalling the pre-commmit hook
+
+1. `cd` into the root of the repository, e.g.
+
+   ```bash
+   cd ~/Git/my-linty-repo
+   ```
+
+2. Run the `uninstall.py` script in `.git/hooks/pre_commit` with
+
+   ```bash
+   python .git/hooks/pre_commit/uninstall.py
+   ```
+
 ## Adding support for more linters
 
 You can leverage the `Linter` class in
