@@ -144,6 +144,12 @@ You can leverage the `Linter` class in
 [`pre_commit.linters`](https://github.com/spreemohealth/style/blob/master/pre_commit/linters.py)
 to add support for a variety of additional linters.
 
+## Contributing to this repository
+
+Please refer to the
+[CONTRINUTING.md](https://github.com/spreemohealth/style/blob/master/CONTRIBUTING.md)
+file for instructions on how to contribute to this repository.
+
 ## How to avoid code checking
 
 Generally, you want *all* of your code to be checked without exceptions.
