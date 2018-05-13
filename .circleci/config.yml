@@ -1,0 +1,30 @@
+machine:
+
+  timezone:
+    America/New_York
+
+version: 2
+
+jobs:
+
+  build:
+
+    docker:
+      - image: python:3.6-slim
+
+    steps:
+      - checkout
+
+      - run:
+          name: Run tests on code
+          command: |
+            export PYTHONPATH=$PYTHONPATH:/project/style/
+            python tests/util_tests.py -v
+
+      - run:
+          name: Install linters
+          command: pip install flake8
+
+      - run:
+          name: Lint Python code
+          command: flake8

@@ -1,3 +1,10 @@
+<!-- markdownlint-disable -->
+| Branch    | Status |
+|  ---      |  ---   |
+| `master`  | [![CircleCI](https://circleci.com/gh/spreemohealth/style/tree/master.svg?style=svg&circle-token=cbe41c7e30fa02b7c8a3af3a7777c5650c3c93b7)](https://circleci.com/gh/spreemohealth/style/tree/master) |
+| `staging` | [![CircleCI](https://circleci.com/gh/spreemohealth/style/tree/staging.svg?style=svg&circle-token=cbe41c7e30fa02b7c8a3af3a7777c5650c3c93b7)](https://circleci.com/gh/spreemohealth/style/tree/staging) |
+<!-- markdownlint-enable -->
+
 # Style
 
 > You got that James Dean daydream look in your eye
@@ -149,8 +156,14 @@ Currently, `style` performs code checking on file written in
 ## Adding support for more linters
 
 You can leverage the `Linter` class in
-[`style.pre_commit.linters`](https://github.com/spreemohealth/style/blob/master/pre_commit/linters.py)
+[`pre_commit.linters`](https://github.com/spreemohealth/style/blob/master/pre_commit/linters.py)
 to add support for a variety of additional linters.
+
+## Contributing to this repository
+
+Please refer to the
+[CONTRIBUTING.md](https://github.com/spreemohealth/style/blob/master/CONTRIBUTING.md)
+file for instructions on how to contribute to this repository.
 
 ## How to avoid code checking
 
