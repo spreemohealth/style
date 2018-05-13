@@ -10,7 +10,7 @@ jobs:
   build:
 
     docker:
-      - image: circleci:3.6
+      - image: circleci/python:3.6-jessie
 
     steps:
       - checkout
