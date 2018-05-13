@@ -20,3 +20,7 @@ jobs:
           command: |
             export PYTHONPATH=$PYTHONPATH:/project/style/
             python tests/util_tests.py -v
+
+      - run:
+          name: Lint Python code
+            command: flake8
