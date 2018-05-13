@@ -56,21 +56,14 @@ class Lint(object):
 
         # check that paths and file names are ok
         for _path in staged_files_paths:
-            self.git_handle._check_staged_file_path_is_allowed(_path)
-
-        # get the paths of the staged files, relative to the root of the git
-        # repository
-        staged_files_rel_paths = [
-            path.relpath(file, self.git_handle.root)
-            for file in staged_files_paths
-        ]
+            self.git_handle._check_file_path_is_allowed(_path)
 
         # create a temporary directory
         tmp_dir = TemporaryDirectory()
 
         # write the content of the staged files to temporary files
         files_in_tmp_dir = []    # list to collect rel path of temporary files
-        for rel_path in staged_files_rel_paths:
+        for rel_path in staged_files_paths:
             # ensure parent directory of a staged file exists inside of
             # `tmp_dir`
             makedirs(
