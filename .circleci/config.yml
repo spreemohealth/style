@@ -16,6 +16,10 @@ jobs:
       - checkout
 
       - run:
+        name: Find git
+        command: which git
+
+      - run:
           name: Run tests on code
           command: |
             pip install gitpython # used only in tests at the moment
