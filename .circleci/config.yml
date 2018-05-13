@@ -20,7 +20,6 @@ jobs:
           command: |
             pip install gitpython # used only in tests at the moment
             export PYTHONPATH=$PYTHONPATH:/project/style/
-            export PATH=$PATH:/usr/local/bin/git
             python -m unittest discover -s ./tests -v
 
       - run:
