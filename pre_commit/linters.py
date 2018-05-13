@@ -19,7 +19,7 @@ class Linter(object):
 
     # a tuple of one or more file extensions that determines to which files
     # the linter applies to, e.g. ".py" or (".r", ".R").
-    extension = None
+    extension = ""
 
     def create_subprocess(self, path):
         """
