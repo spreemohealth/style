@@ -147,7 +147,7 @@ to add support for a variety of additional linters.
 ## Contributing to this repository
 
 Please refer to the
-[CONTRINUTING.md](https://github.com/spreemohealth/style/blob/master/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/spreemohealth/style/blob/master/CONTRIBUTING.md)
 file for instructions on how to contribute to this repository.
 
 ## How to avoid code checking
