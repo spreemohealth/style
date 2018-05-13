@@ -111,10 +111,10 @@ class GitHandle(object):
 
     def get_staged_files_paths(self):
         """
-        Gets the absolute paths of all staged files.
+        Gets the relative paths of all staged files.
 
         Returns:
-            A list with the absolute paths of all files that are currently
+            A list with the relative paths of all files that are currently
             staged.
         """
         head_hash = self.get_head_hash()
@@ -137,7 +137,7 @@ class GitHandle(object):
             staged_files = [file for file in staged_files if file]
 
             staged_files_paths = [
-                path.abspath(file) for file in staged_files
+                path.relpath(file, self.root) for file in staged_files
             ]
 
             return staged_files_paths
