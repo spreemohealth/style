@@ -17,9 +17,9 @@ jobs:
 
       - run:
           name: Run tests
-          command: |
-            export PYTHONPATH=$PYTHONPATH:/project/style/
-            python tests/util_tests.py -v
+            command: |
+              export PYTHONPATH=$PYTHONPATH:/project/style/
+              python tests/util_tests.py -v
 
       - run:
           name: Lint Python code
