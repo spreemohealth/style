@@ -17,7 +17,7 @@ jobs:
 
       - run:
           name: Install git
-          command: sudo apt install git-all
+          command: apt install git-all
 
       - run:
           name: Run tests on code
