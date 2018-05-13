@@ -1,3 +1,10 @@
+<!-- markdownlint-disable -->
+| Branch    | Status |
+|  ---      |  ---   |
+| `master`  | [![CircleCI](https://circleci.com/gh/spreemohealth/style/tree/master.svg?style=svg&circle-token=cbe41c7e30fa02b7c8a3af3a7777c5650c3c93b7)](https://circleci.com/gh/spreemohealth/style/tree/master) |
+| `staging` | [![CircleCI](https://circleci.com/gh/spreemohealth/style/tree/staging.svg?style=svg&circle-token=cbe41c7e30fa02b7c8a3af3a7777c5650c3c93b7)](https://circleci.com/gh/spreemohealth/style/tree/staging) |
+<!-- markdownlint-enable -->
+
 # Style
 
 > You got that James Dean daydream look in your eye
