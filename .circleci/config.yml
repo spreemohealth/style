@@ -21,8 +21,6 @@ jobs:
             pip install gitpython --user # used only in tests at the moment
             export PYTHONPATH=$PYTHONPATH:/project/style/
             python -m unittest discover -s ./tests -v
-          environment:
-            GIT_PYTHON_GIT_EXECUTABLE: /usr/bin/git
 
       - run:
           name: Install linters
