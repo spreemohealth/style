@@ -67,10 +67,10 @@ class GitHandle(object):
 
         return root_path
 
-    def _check_staged_file_path_is_allowed(self, staged_file_path):
+    def _check_file_path_is_allowed(self, file_path):
         """
-        Checks that paths and file names in the staging area do not contain
-        forbidden characters (such as whitespace, quotes, ...) that make it
+        Checks that paths and file names do not contain forbidden
+        characters (such as whitespace, quotes, ...) that make it
         complicated to execute shell commands.
         """
         forbidden = ''.join([
@@ -79,10 +79,10 @@ class GitHandle(object):
             shlex().escape
         ])
 
-        if any(map(lambda x: x in forbidden, list(staged_file_path))):
+        if any(map(lambda x: x in forbidden, list(file_path))):
             raise ForbiddenCharacterError(
                 "Please do not use special characters "
-                "in file names and paths: %s" % staged_file_path
+                "in file names and paths: %s" % file_path
             )
 
     def get_head_hash(self):
