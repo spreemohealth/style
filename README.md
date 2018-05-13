@@ -141,7 +141,7 @@ Currently, `style` performs code checking on file written in
 ## Adding support for more linters
 
 You can leverage the `Linter` class in
-[`style.pre_commit.linters`](https://github.com/spreemohealth/style/blob/master/pre_commit/linters.py)
+[`pre_commit.linters`](https://github.com/spreemohealth/style/blob/master/pre_commit/linters.py)
 to add support for a variety of additional linters.
 
 ## How to avoid code checking
