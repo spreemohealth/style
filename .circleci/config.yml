@@ -16,6 +16,9 @@ jobs:
       - checkout
       
       - run:
+          name: Add style module to PATH
+          command: export PATH=$PATH:/project/style/
+
+      - run:
           name: Run tests
-          command: |
-            python tests/util_tests.py -v
+          command: python tests/util_tests.py -v
