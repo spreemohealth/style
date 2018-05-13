@@ -16,8 +16,8 @@ jobs:
       - checkout
 
       - run:
-        name: Find git
-        command: which git
+          name: Find git
+          command: which git
 
       - run:
           name: Run tests on code
