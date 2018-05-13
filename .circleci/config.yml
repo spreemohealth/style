@@ -17,7 +17,7 @@ jobs:
       
       - run:
           name: Add style module to PATH
-          command: export PATH=$PATH:/project/style/
+          command: export PATH=$PATH:/style/
 
       - run:
           name: Run tests
