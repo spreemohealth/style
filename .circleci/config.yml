@@ -18,6 +18,7 @@ jobs:
       - run:
           name: Run tests on code
           command: |
+            pip install gitpython # used only in tests at the moment
             export PYTHONPATH=$PYTHONPATH:/project/style/
             python tests/util_tests.py -v
 
