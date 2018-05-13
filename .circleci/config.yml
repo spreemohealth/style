@@ -16,6 +16,10 @@ jobs:
       - checkout
 
       - run:
+          name: Install git
+          command: sudo apt install git-all
+
+      - run:
           name: Run tests on code
           command: |
             pip install gitpython # used only in tests at the moment
