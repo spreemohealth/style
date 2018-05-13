@@ -13,9 +13,6 @@ jobs:
       - image: python:3.6-slim
 
     steps:
-      - run: 
-          command: echo 'export GIT_PYTHON_GIT_EXECUTABLE=/usr/local/bin/git' >> $BASH_ENV
-      
       - checkout
 
       - run:
@@ -24,6 +21,8 @@ jobs:
             pip install gitpython # used only in tests at the moment
             export PYTHONPATH=$PYTHONPATH:/project/style/
             python -m unittest discover -s ./tests -v
+          environment:
+            GIT_PYTHON_GIT_EXECUTABLE: /usr/local/bin/git
 
       - run:
           name: Install linters
