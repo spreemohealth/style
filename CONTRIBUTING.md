@@ -25,7 +25,9 @@ Here are some guidelines.
 
 We periodically review the contents of the `staging` branch and merge the
 `staging` branch into the master branch.
-These "releases" are documented in the `RELEASES.md` file.
+These "releases" are documented in the
+[`RELEASES.md`](https://github.com/spreemohealth/style/blob/master/RELEASES.md)
+file.
 
 ## Adding support for additional linters
 
@@ -35,6 +37,8 @@ If you add support for additional linters, please
   [`pre_commit.linters`](https://github.com/spreemohealth/style/blob/master/pre_commit/linters.py)
   whenever possible
 
-- update the `style/install.py` file
+- update the `install.py` file
 
-- update the `style/uninstall.py` file.
+- update the `pre_commit/uninstall.py` file
+
+- update the `README.md` file.
