@@ -23,4 +23,6 @@ jobs:
 
       - run:
           name: Lint Python code
-          command: flake8
+          command: |
+            pip install flake8
+            flake8
