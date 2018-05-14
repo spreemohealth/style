@@ -25,19 +25,19 @@ parser.add_argument(
 parser.add_argument(
     "-m",
     action="store_true",
-    help="Enable the Markdown linter?"
+    help="enable the Markdown linter?"
 )
 
 parser.add_argument(
     "-p",
     action="store_true",
-    help="Enable the Python linter?"
+    help="enable the Python linter?"
 )
 
 parser.add_argument(
     "-r",
     action="store_true",
-    help="Enable the R linter?"
+    help="enable the R linter?"
 )
 
 args = parser.parse_args()
@@ -94,6 +94,7 @@ for repo in repos:
             os.path.join(target_path, "pre_commit", "pre-commit"),
             os.path.join(target_path, "pre-commit")
         )
+
         # make the pre-commit file executable
         current_target_pre_commit_hook_stat = os.stat(target_pre_commit_hook)
         os.chmod(

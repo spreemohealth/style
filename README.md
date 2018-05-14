@@ -99,14 +99,14 @@ Currently, `style` performs code checking on file written in
    the following example):
 
    ```bash
-   python install ~/Git/my-linty-repo
+   python install.py ~/Git/my-linty-repo
    ```
 
    If you want, you can perform the installation on more than one target
    repository:
 
    ```bash
-   python install ~/Git/my-linty-repo ~/Git/my-linty-repo2 ...
+   python install.py ~/Git/my-linty-repo ~/Git/my-linty-repo2 ...
    ```
 
    By default, the installation activates all available linters.
@@ -117,21 +117,29 @@ Currently, `style` performs code checking on file written in
    in `~/Git/my-linty-repo` you can run
 
    ```bash
-   python install -p ~/Git/my-linty-repo
+   python install.py -p ~/Git/my-linty-repo
    ```
 
    or, to activate the Markdown and the Python linter, but not the R linter,
    you can run
 
    ```bash
-   python install -m -p ~/Git/my-linty-repo
+   python install.py -m -p ~/Git/my-linty-repo
    ```
 
    or
 
    ```bash
-   python install -mp ~/Git/my-linty-repo
+   python install.py -mp ~/Git/my-linty-repo
    ```
+
+   Run
+
+   ```bash
+   python install.py -h
+   ```
+
+   to display all installation options.
 
 ## Uninstalling the pre-commmit hook
 
@@ -194,6 +202,10 @@ follows) with:
 <!-- markdownlint-enable MD001 MD002 -->
 ```
 
+More configuration options can be specified with e.g. a
+[`.mdlrc`](https://github.com/markdownlint/markdownlint/blob/master/docs/configuration.md#mdl-configuration)
+file.
+
 ### Python - `flake8`
 
 You can exclude an entire file from being checked by including the following
@@ -216,6 +228,9 @@ b =2 # noqa
 
 You can exclude specific errors on a line with `# noqa: <error>`,
 e.g. `# noqa: E234`.
+
+More configuration options can be specified with e.g. a
+[`.flake8`](http://flake8.pycqa.org/en/latest/user/configuration.html) file.
 
 ### R - `lintr`
 
@@ -244,6 +259,9 @@ b =2
 # this line will raise an error
 x <- c(1,2, 3)
 ```
+
+More configuration options can be specified with e.g. a
+[`.lintr`](https://github.com/jimhester/lintr#project-configuration) file.
 
 ## Useful links
 
