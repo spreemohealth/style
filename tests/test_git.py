@@ -28,6 +28,7 @@ class BasicRepo(object):
         self.repo_path = path
         self.repo = Repo.init(path, bare=bare)  # noqa
 
+        # set basic git configuration
         self.repo.git.config("user.email", "foo@foo.bar")
         self.repo.git.config("user.name", "Foo")
 
