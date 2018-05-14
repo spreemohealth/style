@@ -59,7 +59,7 @@ class TestGitHandle(TestCase):
         finally:
             repo.clean_up()
 
-    def test_check_file_path_is_allowed(self):
+    def test_check_path_is_allowed(self):
 
         try:
             # initialize repo
@@ -70,16 +70,16 @@ class TestGitHandle(TestCase):
 
             # test some bad paths and file names
             with self.assertRaises(ForbiddenCharacterError):
-                git_handle._check_file_path_is_allowed("a bad/path")
+                git_handle._check_path_is_allowed("a bad/path")
 
             with self.assertRaises(ForbiddenCharacterError):
-                git_handle._check_file_path_is_allowed("/a\nice/path/")
+                git_handle._check_path_is_allowed("/a\nice/path/")
 
             with self.assertRaises(ForbiddenCharacterError):
-                git_handle._check_file_path_is_allowed("this_is_/'the'/_path")
+                git_handle._check_path_is_allowed("this_is_/'the'/_path")
 
             with self.assertRaises(ForbiddenCharacterError):
-                git_handle._check_file_path_is_allowed(
+                git_handle._check_path_is_allowed(
                     path.join("\\", "a_path")
                 )
 

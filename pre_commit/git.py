@@ -67,7 +67,7 @@ class GitHandle(object):
 
         return root_path
 
-    def _check_file_path_is_allowed(self, file_path):
+    def _check_path_is_allowed(self, file_path):
         """
         Checks that paths and file names do not contain forbidden
         characters (such as whitespace, quotes, ...) that make it

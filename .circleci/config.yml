@@ -10,31 +10,25 @@ jobs:
   build:
 
     docker:
-      - image: circleci/python:3.6-jessie
+      - image: spreemohealth/style-tests:latest
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PW
 
     steps:
       - checkout
 
       - run:
-          name: Configure a Python virtualenv
-          command: virtualenv .env
+          name: Lint Python code
+          command: |
+            sudo python -m flake8 ./
 
       - run:
-          name: Install required Python modules
+          name: Lint Markdown code
           command: |
-            source .env/bin/activate
-            pip install flake8
-            pip install gitpython # used only in tests at the moment
+            sudo markdownlint ./
 
       - run:
           name: Run tests on code
           command: |
-            source .env/bin/activate
-            export PYTHONPATH=$PYTHONPATH:/project/style/
-            python -m unittest discover -s ./tests -v
-
-      - run:
-          name: Lint Python code
-          command: |
-            source .env/bin/activate
-            python -m flake8 ./ --exclude=.env
+            sudo python -m unittest discover -s ./tests -v

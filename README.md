@@ -70,7 +70,7 @@ Currently, `style` performs code checking on files written in
 
 1. Please make sure that Python 3 and R are both installed on your system.
 
-   *In this example, `python` and `pip` point to my Homebrew*
+   *In this example, `python` and `pip` point to the Homebrew*
    *Python 3 distribution.*
    *If you are using a different distribution, or working in a virtual*
    *environment, please make the appropriate changes in what follows.*

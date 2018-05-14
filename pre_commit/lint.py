@@ -56,7 +56,7 @@ class Lint(object):
 
         # check that paths and file names are ok
         for _path in staged_files_paths:
-            self.git_handle._check_file_path_is_allowed(_path)
+            self.git_handle._check_path_is_allowed(_path)
 
         # create a temporary directory
         tmp_dir = TemporaryDirectory()

@@ -3,6 +3,14 @@
 This module defines the `Linter` class, a convenience class that can be used
 to wrap linters for different programming languages.
 
+In order to wrap additional linters,
+
+1. subclass from the `Linter` class
+
+2. set the `extension` attribute
+
+3. implement the `linter_process()` method.
+
 You are free to define linters for additional programming languages here.
 """
 from subprocess import (
@@ -18,20 +26,27 @@ class Linter(object):
     """
 
     # a tuple of one or more file extensions that determines to which files
-    # the linter applies to, e.g. ".py" or (".r", ".R").
+    # the linter applies to, e.g. ".md", ".py", or (".r", ".R").
     extension = ""
 
-    def create_subprocess(self, path):
+    def linter_process(self, pth):
         """
         Create a subprocess to run the desired linter, e.g.
         ```
         pipe = Popen(
-            ["flake8", file],
+            ["flake8", pth],
             stdout=PIPE,
             stderr=PIPE,
         )
         return pipe
         ```
+
+        Args:
+            - pth: placeholder for a file path
+
+        Returns:
+            - a `subprocess.Popen` instance
+
         Make sure to send the linter's output to stdout!
         """
         raise NotImplementedError
@@ -60,7 +75,7 @@ class Linter(object):
 
             # run the linter on each file
             for _file in sorted(self.relevant_files):
-                pipe = self.create_subprocess(_file)
+                pipe = self.linter_process(_file)
                 out, err = pipe.communicate()
 
                 out = out.decode('utf-8')
@@ -81,7 +96,7 @@ class MarkdownLinter(Linter):
 
     extension = ".md"
 
-    def create_subprocess(self, f):
+    def linter_process(self, f):
         pipe = Popen(
             ["markdownlint", f],
             stdout=PIPE,
@@ -99,7 +114,7 @@ class PythonLinter(Linter):
 
     extension = ".py"
 
-    def create_subprocess(self, f):
+    def linter_process(self, f):
         pipe = Popen(
             ["flake8", f],
             stdout=PIPE,
@@ -115,7 +130,7 @@ class RLinter(Linter):
 
     extension = (".r", ".R")
 
-    def create_subprocess(self, f):
+    def linter_process(self, f):
         pipe = Popen(
             [
                 "Rscript", "--slave", "--vanilla",
