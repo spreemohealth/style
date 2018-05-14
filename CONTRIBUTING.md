@@ -2,26 +2,25 @@
 
 We are very happy to receive Pull Requests!
 
-Here are some guidelines.
+If you decide to contribute, please follow these general guidelines.
 
 ## How to contribute
 
-1. Fork the repository.
+1. Fork this repository.
 
-2. Branch from `staging` and add your code / make your edits in your own
-   branch.
+2. Make your edits/additions.
 
-3. Add meaningful tests for your code additions.
+3. Add meaningful tests for your code.
 
-4. Push your changes to your own branch to trigger a build on CircleCI.
+4. When you are done with your work, open a Pull Request (please set
+   `base: staging` in your PR).
+   The PR will trigger a build on CircleCI.
+   If the build is not successful, please make the necessary edits and push
+   again.
 
-5. When you are done with your work and the build on CircleCI is successful,
-   open a Pull Request from your branch into `staging`.
-
-6. We will reach out if we feel changes are needed or if we have other
+5. We will reach out if we feel that changes are needed or if we have other
    feedback.
-   Otherwise, we will merge the PR into `staging` and delete your remote
-   branch.
+   Otherwise, we will merge the PR into `staging` and close the PR.
 
 We periodically review the contents of the `staging` branch and merge the
 `staging` branch into the master branch.
@@ -39,6 +38,6 @@ If you add support for additional linters, please
 
 - update the `install.py` file
 
-- update the `pre_commit/uninstall.py` file
+- update the `README.md` file
 
-- update the `README.md` file.
+- update the `pre_commit/uninstall.py` file, if needed.

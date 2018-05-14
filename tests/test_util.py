@@ -34,7 +34,7 @@ class TestExecInDir(TestCase):
                 with open(test_file_path, "w") as foo:
                     foo.write("a-ha!")
 
-            self.assertEqual(getcwd(), self.cwd)
+            self.assertEqual(path.abspath(getcwd()), path.abspath(self.cwd))
             self.assertTrue(path.isfile(path.abspath(test_file_path)))
 
         except Exception:
@@ -58,7 +58,7 @@ class TestExecInDir(TestCase):
                 with open(test_file_path, "w") as foo:
                     foo.write("a-ha!")
 
-            self.assertEqual(getcwd(), self.cwd)
+            self.assertEqual(path.abspath(getcwd()), path.abspath(self.cwd))
             self.assertTrue(path.isfile(path.abspath(test_file_path)))
 
         except Exception:

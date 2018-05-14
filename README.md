@@ -55,7 +55,7 @@ The hook works as follows:
 
 ## Languages
 
-Currently, `style` performs code checking on file written in
+Currently, `style` performs code checking on files written in
 
 - **Markdown** (`.md` files), using
   [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli)
@@ -70,10 +70,10 @@ Currently, `style` performs code checking on file written in
 
 1. Please make sure that Python 3 and R are both installed on your system.
 
-   *Note that in this example, `python` and `pip` point to my Homebrew*
+   *In this example, `python` and `pip` point to my Homebrew*
    *Python 3 distribution.*
-   *If you are using a different distribution, please make the appropriate*
-   *changes in the commands that follow.*
+   *If you are using a different distribution, or working in a virtual*
+   *environment, please make the appropriate changes in what follows.*
 
 2. Make sure that the following are installed on your system:
 
