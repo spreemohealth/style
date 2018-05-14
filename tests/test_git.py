@@ -28,6 +28,9 @@ class BasicRepo(object):
         self.repo_path = path
         self.repo = Repo.init(path, bare=bare)  # noqa
 
+        self.repo.git.config("user.email", "foo@foo.bar")
+        self.repo.git.config("user.name", "Foo")
+
     def clean_up(self):
         rmtree(self.repo_path)
 
