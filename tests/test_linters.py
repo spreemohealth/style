@@ -26,7 +26,30 @@ class TestMarkdownLinter(TestCase):
 
     cwd = getcwd()
 
-    def test_exit_code(self):
+    def test_zero_exit_code(self):
+        try:
+            # write a bad markdown file
+            file_path = path.join(self.cwd, "test.md")
+            w = Writer(file_path)
+            w.write("# Section")
+            w.write("")
+            w.write("This is ok!")
+
+            # instantiate the linter (sink STDOUT in testing)
+            f = StringIO()
+            with redirect_stdout(f):
+                return_value = MarkdownLinter().lint([w.path])
+
+            self.assertEqual(return_value, 0)
+
+        except Exception:
+            raise
+
+        finally:
+            # clean up
+            w.delete()
+
+    def test_non_zero_exit_code(self):
         try:
             # write a bad markdown file
             file_path = path.join(self.cwd, "test.md")
@@ -53,7 +76,31 @@ class TestPythonLinter(TestCase):
 
     cwd = getcwd()
 
-    def test_exit_code(self):
+    def test_zero_exit_code(self):
+        try:
+            # write a bad markdown file
+            file_path = path.join(self.cwd, "test.py")
+            w = Writer(file_path)
+            w.write("# This is ok")
+            w.write("a = 3")
+            w.write("b = 4")
+            w.write("a < 4")
+
+            # instantiate the linter (sink STDOUT in testing)
+            f = StringIO()
+            with redirect_stdout(f):
+                return_value = PythonLinter().lint([w.path])
+
+            self.assertEqual(return_value, 0)
+
+        except Exception:
+            raise
+
+        finally:
+            # clean up
+            w.delete()
+
+    def test_non_zero_exit_code(self):
         try:
             # write a bad python file
             file_path = path.join(self.cwd, "test.py")
@@ -80,7 +127,31 @@ class TestRLinter(TestCase):
 
     cwd = getcwd()
 
-    def test_exit_code(self):
+    def test_zero_exit_code(self):
+        try:
+            # write a bad markdown file
+            file_path = path.join(self.cwd, "test.R")
+            w = Writer(file_path)
+            w.write("# This is ok")
+            w.write("a <- 3")
+            w.write("b <- 4")
+            w.write("a < 4")
+
+            # instantiate the linter (sink STDOUT in testing)
+            f = StringIO()
+            with redirect_stdout(f):
+                return_value = RLinter().lint([w.path])
+
+            self.assertEqual(return_value, 0)
+
+        except Exception:
+            raise
+
+        finally:
+            # clean up
+            w.delete()
+
+    def test_non_zero_exit_code(self):
         try:
             # write a bad python file
             file_path = path.join(self.cwd, "test.R")
