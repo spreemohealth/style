@@ -2,18 +2,12 @@
 """
 Tests for the `pre_commit.git` submodule.
 """
-from os import (
-    getcwd,
-    path
-)
-from shutil import rmtree
+from os import path
 from tempfile import TemporaryDirectory
 from unittest import (
     main,
     TestCase
 )
-
-from git import Repo
 
 from pre_commit.git import (
     ForbiddenCharacterError,
@@ -21,19 +15,7 @@ from pre_commit.git import (
     RepositoryError
 )
 
-
-# utility to set up repo
-class BasicRepo(object):
-    def __init__(self, path=path.join(getcwd(), "test_repo"), bare=True):
-        self.repo_path = path
-        self.repo = Repo.init(path, bare=bare)  # noqa
-
-        # set basic git configuration
-        self.repo.git.config("user.email", "foo@foo.bar")
-        self.repo.git.config("user.name", "Foo")
-
-    def clean_up(self):
-        rmtree(self.repo_path)
+from tests.util import BasicRepo
 
 
 class TestGitHandle(TestCase):
@@ -57,7 +39,7 @@ class TestGitHandle(TestCase):
             raise
 
         finally:
-            repo.clean_up()
+            repo.delete()
 
     def test_check_path_is_allowed(self):
 
@@ -87,7 +69,7 @@ class TestGitHandle(TestCase):
             raise
 
         finally:
-            repo.clean_up()
+            repo.delete()
 
     def test_get_head_hash_bare(self):
 
@@ -108,7 +90,7 @@ class TestGitHandle(TestCase):
             raise
 
         finally:
-            repo.clean_up()
+            repo.delete()
 
     def test_get_head_hash_not_bare(self):
 
@@ -135,7 +117,7 @@ class TestGitHandle(TestCase):
             raise
 
         finally:
-            repo.clean_up()
+            repo.delete()
 
     def test_get_staged_file_paths(self):
 
@@ -170,7 +152,7 @@ class TestGitHandle(TestCase):
             raise
 
         finally:
-            repo.clean_up()
+            repo.delete()
 
     def test_staged_file_content(self):
 
@@ -205,7 +187,7 @@ class TestGitHandle(TestCase):
             raise
 
         finally:
-            repo.clean_up()
+            repo.delete()
 
 
 class TestGitHandleErrors(TestCase):

@@ -6,8 +6,7 @@ from contextlib import redirect_stdout
 from io import StringIO
 from os import (
     getcwd,
-    path,
-    remove
+    path
 )
 from unittest import (
     main,
@@ -20,32 +19,9 @@ from pre_commit.linters import (
     RLinter
 )
 
-
-#
-# Utilities for testing
-#
-class Writer(object):
-
-    def __init__(self, path):
-        self.path = path
-
-    def write(self, contents, newline=True):
-        if path.isfile(self.path):
-            mode = "a"
-        else:
-            mode = "w"
-        with open(self.path, mode) as f:
-            if newline:
-                contents += "\n"
-            f.write(contents)
-
-    def delete(self):
-        remove(self.path)
+from tests.util import Writer
 
 
-#
-# Tests
-#
 class TestMarkdownLinter(TestCase):
 
     cwd = getcwd()
