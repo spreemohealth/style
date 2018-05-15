@@ -50,7 +50,7 @@ class TestGitHandle(TestCase):
             # initialize git handle
             git_handle = GitHandle(repo.repo_path)
 
-            # test some bad paths and file names
+            # test some bad paths and file names...
             with self.assertRaises(ForbiddenCharacterError):
                 git_handle._check_path_is_allowed("a bad/path")
 
@@ -63,6 +63,11 @@ class TestGitHandle(TestCase):
             with self.assertRaises(ForbiddenCharacterError):
                 git_handle._check_path_is_allowed(
                     path.join("\\", "a_path")
+                )
+
+            with self.assertRaises(ForbiddenCharacterError):
+                git_handle._check_path_is_allowed(
+                    path.join("/some/path", "this is_bad.ext")
                 )
 
         except Exception:
