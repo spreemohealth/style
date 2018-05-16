@@ -271,3 +271,5 @@ More configuration options can be specified with e.g. a
   [Python's PEP8 (easier to read)](https://www.python.org/dev/peps/pep-0008/)
 
 - [Hadley's R style guide](http://r-pkgs.had.co.nz/style.html)
+
+![xkcd](https://imgs.xkcd.com/comics/code_quality_2x.png)
