@@ -89,7 +89,7 @@ Currently, `style` performs code checking on files written in
 
    - the R `lintr` package:
       ```bash
-      R -e "install.packages('lintr', repos='https://cloud.r-project.org')"
+      R -e "install.packages('lintr', repos = 'https://cloud.r-project.org')"
       ```
 
 3. Clone this repository on your system (say in `~/Git/style`) and `cd`
