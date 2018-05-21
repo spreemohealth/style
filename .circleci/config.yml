@@ -10,7 +10,7 @@ jobs:
   build:
 
     docker:
-      - image: spreemohealth/style-tests:latest
+      - image: spreemohealth/pyr-lint:style-tests
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PW
@@ -21,14 +21,15 @@ jobs:
       - run:
           name: Lint Python code
           command: |
-            sudo python -m flake8 ./
+            python3 -m flake8 ./
 
       - run:
           name: Lint Markdown code
           command: |
-            sudo markdownlint ./
+            markdownlint ./
 
       - run:
           name: Run tests on code
           command: |
-            sudo python -m unittest discover -s ./tests -v
+            export CI=""  # this is needed to avoid issues with R linting
+            python3 -m unittest discover -s ./tests -v
