@@ -15,18 +15,14 @@ If you decide to contribute, please follow these general guidelines.
 4. When you are done with your work, open a Pull Request (please set
    `base: staging` in your PR).
    The PR will trigger a build on CircleCI.
-   If the build is not successful, please make the necessary edits and push
-   again.
+   If the build is not successful, please make the necessary edits.
 
 5. We will reach out if we feel that changes are needed or if we have other
    feedback.
    Otherwise, we will merge the PR into `staging` and close the PR.
 
-We periodically review the contents of the `staging` branch and merge the
-`staging` branch into the master branch.
-These "releases" are documented in the
-[`RELEASES.md`](https://github.com/spreemohealth/style/blob/master/RELEASES.md)
-file.
+We periodically review the contents of the `staging` branch, merge it into
+`master`, and [release a new version of the `style` repository](https://github.com/spreemohealth/style/releases).
 
 ## Adding support for additional linters
 

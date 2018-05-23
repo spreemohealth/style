@@ -12,7 +12,7 @@ try:
             path.join(path.dirname(path.dirname(__file__)), "pre-commit")
         )
     )
-except FileNotFoundError:
+except FileNotFoundError:  # noqa
     pass
 
 # remove pre_commit subdirectory
