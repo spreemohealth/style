@@ -55,7 +55,7 @@ The hook works as follows:
 
 ## Languages
 
-Currently, `style` performs code checking on files written in
+Currently, `style` can perform code checking on files written in
 
 - **Markdown** (`.md` files), using
   [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli)
@@ -82,9 +82,14 @@ Currently, `style` performs code checking on files written in
       npm install -g markdownlint-cli
       ```
 
-   - the Python `flake8` module (for Python 3):
+      `npm` comes with `node`, which you can install with
+      `brew install node` on Mac.
+
+      On Linux, you can install `npm` with `sudo apt-get install npm`.
+
+   - the Python `flake8` module:
       ```bash
-      pip install flake8 --upgrade
+      pip install flake8
       ```
 
    - the R `lintr` package:
@@ -103,14 +108,14 @@ Currently, `style` performs code checking on files written in
    ```
 
    If you want, you can perform the installation on more than one target
-   repository:
+   repository at the same time:
 
    ```bash
    python install.py ~/Git/my-linty-repo ~/Git/my-linty-repo2 ...
    ```
 
    By default, the installation activates all available linters.
-   Alternatively, you can select which linters you want to activate by means
+   However, you can select which linters you want to activate by means
    of short flags.
 
    For instance, in order to activate only the Python linter
@@ -143,7 +148,8 @@ Currently, `style` performs code checking on files written in
 
 ## Uninstalling the pre-commmit hook
 
-1. `cd` into the root of the repository, e.g.
+1. `cd` into the root of the repository from which you want to remove the hook,
+   e.g.
 
    ```bash
    cd ~/Git/my-linty-repo
