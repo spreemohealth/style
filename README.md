@@ -1,4 +1,4 @@
-# Style
+# StylE!
 
 > You got that James Dean daydream look in your eye
 >
