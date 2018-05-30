@@ -10,10 +10,7 @@ jobs:
   build:
 
     docker:
-      - image: spreemohealth/pyr-lint:style-tests
-        auth:
-          username: $DOCKERHUB_USERNAME
-          password: $DOCKERHUB_PW
+      - image: spreemohealth/style-tests
 
     steps:
       - checkout
