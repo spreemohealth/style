@@ -281,3 +281,5 @@ More configuration options can be specified with e.g. a
 - [Hadley's R style guide](http://r-pkgs.had.co.nz/style.html)
 
 ![xkcd](https://imgs.xkcd.com/comics/code_quality_2x.png)
+
+This is a trivial change.
