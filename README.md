@@ -62,6 +62,15 @@ The hook works as follows:
    your commit is rejected. In this case, simply make the appropriate edits
    and commit again.
 
+<!-- markdownlint-disable -->
+<p align="center">
+   <img
+      src="demo/pre-commit.gif"
+      alt="Demo"
+   >
+</p>
+<!-- markdownlint-enable -->
+
 ## Languages
 
 Currently, `style` can perform code checking on files written in
