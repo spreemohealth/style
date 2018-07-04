@@ -8,7 +8,14 @@
 >
 > 'Cause we never go out of style, we never go out of style...
 
-![style](http://teenageoracle.weebly.com/uploads/5/0/3/4/50348443/ezgif-2-9e4c6f0617_orig.gif)
+<!-- markdownlint-disable -->
+<p align="center">
+   <img
+      src="http://teenageoracle.weebly.com/uploads/5/0/3/4/50348443/ezgif-2-9e4c6f0617_orig.gif"
+      alt="Taylor"
+   >
+</p>
+<!-- markdownlint-enable -->
 
 ## Status
 
@@ -54,6 +61,15 @@ The hook works as follows:
 3. If the linters find that there is something wrong with your code,
    your commit is rejected. In this case, simply make the appropriate edits
    and commit again.
+
+<!-- markdownlint-disable -->
+<p align="center">
+   <img
+      src="demo/pre-commit.gif"
+      alt="Demo"
+   >
+</p>
+<!-- markdownlint-enable -->
 
 ## Languages
 
@@ -187,7 +203,14 @@ Please refer to the documentation of the relevant packages for more details.
 
 **Use wisely!**
 
-![shudders](https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif)
+<!-- markdownlint-disable -->
+<p align="center">
+   <img
+      src="https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif"
+      alt="Mr. Burns"
+   >
+</p>
+<!-- markdownlint-enable -->
 
 ### Markdown - `markdownlint`
 
@@ -282,4 +305,11 @@ in the root of your local repository.
 
 - [Hadley's R style guide](http://r-pkgs.had.co.nz/style.html)
 
-![xkcd](https://imgs.xkcd.com/comics/code_quality_2x.png)
+<!-- markdownlint-disable -->
+<p align="center">
+   <img
+      src="https://imgs.xkcd.com/comics/code_quality_2x.png"
+      alt="xkcd"
+   >
+</p>
+<!-- markdownlint-enable -->
