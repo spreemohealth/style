@@ -54,7 +54,7 @@ def get_linter_config(pth):
     Returns the input path if it exists, otherwise "".
 
     Args:
-        pth: a file path,
+        pth: a file path.
 
     Returns:
         Returns its input if the path exists and "" otherwise.
