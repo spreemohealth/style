@@ -102,7 +102,7 @@ class MarkdownLinter(Linter):
     A wrapper for "markdownlint".
     """
 
-    def __init__(self, config_path):
+    def __init__(self, config_path=""):
         super().__init__(".md", config_path)
 
     def linter_process(self, f):
@@ -125,7 +125,7 @@ class PythonLinter(Linter):
     A wrapper for "flake8".
     """
 
-    def __init__(self, config_path):
+    def __init__(self, config_path=""):
         super().__init__(".py", config_path)
 
     def linter_process(self, f):
@@ -147,7 +147,7 @@ class RLinter(Linter):
     A wrapper for "lintr".
     """
 
-    def __init__(self, config_path):
+    def __init__(self, config_path=""):
         super().__init__((".r", ".R"), config_path)
 
     def linter_process(self, f):
