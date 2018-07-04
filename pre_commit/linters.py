@@ -7,7 +7,7 @@ In order to wrap additional linters,
 
 1. subclass from the `Linter` class
 
-2. set the `extension` attribute
+2. set the `extension` attribute in the `__init__` method
 
 3. implement the `linter_process()` method.
 
@@ -25,9 +25,17 @@ class Linter(object):
     Convenience class to wrap linters for different programming languages.
     """
 
-    # a tuple of one or more file extensions that determines to which files
-    # the linter applies to, e.g. ".md", ".py", or (".r", ".R").
-    extension = ""
+    def __init__(self, extension="", config_path=""):
+        """
+        Args:
+            extension: a tuple of one or more file extensions that
+                determines to which files the linter applies to,
+                e.g. ".md", ".py", or (".r", ".R").
+            config_path: the full path to a configuration file for the linter,
+                if one is available.
+        """
+        self.extension = extension
+        self.config_path = config_path
 
     def linter_process(self, pth):
         """
@@ -42,10 +50,10 @@ class Linter(object):
         ```
 
         Args:
-            - pth: placeholder for a file path
+            pth: placeholder for a file path.
 
         Returns:
-            - a `subprocess.Popen` instance
+            A `subprocess.Popen` instance.
 
         Make sure to send the linter's output to stdout!
         """
@@ -94,11 +102,16 @@ class MarkdownLinter(Linter):
     A wrapper for "markdownlint".
     """
 
-    extension = ".md"
+    def __init__(self, config_path):
+        super().__init__(".md", config_path)
 
     def linter_process(self, f):
+        cmd = ["markdownlint", f]
+        # if a config file is available, instruct the linter to use it
+        if self.config_path:
+            cmd += ["--config", self.config_path]
         pipe = Popen(
-            ["markdownlint", f],
+            cmd,
             stdout=PIPE,
             # redirect stderr to stdout: markdownlint outputs linting
             # information to stderr...
@@ -112,11 +125,17 @@ class PythonLinter(Linter):
     A wrapper for "flake8".
     """
 
-    extension = ".py"
+    def __init__(self, config_path):
+        super().__init__(".py", config_path)
 
     def linter_process(self, f):
+        cmd = ["flake8", f]
+        # if a config file is available, instruct the linter to use it
+        if self.config_path:
+            cmd += ["--config", self.config_path]
+        # if there is a config file
         pipe = Popen(
-            ["flake8", f],
+            cmd,
             stdout=PIPE,
             stderr=PIPE,
         )
@@ -128,7 +147,8 @@ class RLinter(Linter):
     A wrapper for "lintr".
     """
 
-    extension = (".r", ".R")
+    def __init__(self, config_path):
+        super().__init__((".r", ".R"), config_path)
 
     def linter_process(self, f):
         pipe = Popen(
