@@ -3,7 +3,8 @@ from configparser import ConfigParser
 from contextlib import contextmanager
 from os import (
     chdir,
-    getcwd
+    getcwd,
+    path
 )
 
 
@@ -28,21 +29,34 @@ def exec_in_dir(_dir):
 def get_config(section, option, conf_file_path):
     """
     Returns the value of an option stored in a section
-    of a configuration file
+    of a configuration file.
 
     Args:
         section: a string corresponding to the name of a section of a
-            configuration file
+            configuration file.
         option: a string corresponding to an option contained in a section
-            of a configuration file
-        conf_file_path: full path to the configuration file
+            of a configuration file.
+        conf_file_path: full path to the configuration file.
 
     Returns:
-        a string, corresponding to the value of the target option in the
-        target section
+        A string, corresponding to the value of the target option in the
+        target section.
     """
     parser = ConfigParser()
 
     parser.read(conf_file_path)
 
     return parser.get(section, option)
+
+
+def get_linter_config(pth):
+    """
+    Returns the input path if it exists, otherwise "".
+
+    Args:
+        pth: a file path.
+
+    Returns:
+        Returns its input if the path exists and "" otherwise.
+    """
+    return pth if path.exists(pth) else ""
