@@ -151,12 +151,29 @@ class RLinter(Linter):
         super().__init__((".r", ".R"), config_path)
 
     def linter_process(self, f):
-        pipe = Popen(
-            [
-                "Rscript", "--slave", "--vanilla",
-                "-e", "lintr::lint('%s')" % f
-            ],
-            stdout=PIPE,
-            stderr=PIPE
-        )
+        # if a config file is available, instruct the linter to use it;
+        # with lintr, unfortunately this requires a little hack:
+        # we need to copy the .lintr file from the root of the local repo
+        # to the working directory of the R session so that the lintr package
+        # picks it up
+        if self.config_path:
+            pipe = Popen(
+                [
+                    "Rscript", "--slave", "--vanilla",
+                    "-e",
+                    ". <- file.copy('%s', basename('%s')); lintr::lint('%s')"
+                    % (self.config_path, self.config_path, f)
+                ],
+                stdout=PIPE,
+                stderr=PIPE
+            )
+        else:
+            pipe = Popen(
+                [
+                    "Rscript", "--slave", "--vanilla",
+                    "-e", "lintr::lint('%s')" % f
+                ],
+                stdout=PIPE,
+                stderr=PIPE
+            )
         return pipe
