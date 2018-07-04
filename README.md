@@ -8,7 +8,12 @@
 >
 > 'Cause we never go out of style, we never go out of style...
 
-![style](http://teenageoracle.weebly.com/uploads/5/0/3/4/50348443/ezgif-2-9e4c6f0617_orig.gif)
+<p align="center">
+   <img
+      src="http://teenageoracle.weebly.com/uploads/5/0/3/4/50348443/ezgif-2-9e4c6f0617_orig.gif"
+      alt="Taylor"
+   >
+</p>
 
 ## Status
 
@@ -187,7 +192,12 @@ Please refer to the documentation of the relevant packages for more details.
 
 **Use wisely!**
 
-![shudders](https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif)
+<p align="center">
+   <img
+      src="https://media.giphy.com/media/3orieQK00Z7KbsPvnG/giphy.gif"
+      alt="Mr. Burns"
+   >
+</p>
 
 ### Markdown - `markdownlint`
 
@@ -282,4 +292,10 @@ in the root of your local repository.
 
 - [Hadley's R style guide](http://r-pkgs.had.co.nz/style.html)
 
-![xkcd](https://imgs.xkcd.com/comics/code_quality_2x.png)
+<p align="center">
+   <img
+      src="https://imgs.xkcd.com/comics/code_quality_2x.png"
+      alt="xkcd"
+   >
+</p>
+
