@@ -12,13 +12,31 @@ from pre_commit.linters import (
     PythonLinter,
     RLinter
 )
-from pre_commit.util import get_config
+from pre_commit.util import (
+    get_config,
+    get_linter_config
+)
+
+# instantiate git handle
+git_handle = GitHandle()
 
 # parse linters configuration file and create `linters` argument for `Lint()`
 available_linters = {
-    "markdown": MarkdownLinter(),
-    "python": PythonLinter(),
-    "r": RLinter()
+    "markdown": MarkdownLinter(
+        config_path=get_linter_config(
+            path.join(git_handle.root, ".markdownlint.json")
+        )
+    ),
+    "python": PythonLinter(
+        config_path=get_linter_config(
+            path.join(git_handle.root, ".flake8")
+        )
+    ),
+    "r": RLinter(
+        config_path=get_linter_config(
+            path.join(git_handle.root, ".lintr")
+        )
+    )
 }
 
 linters = []
@@ -41,5 +59,5 @@ sys.tracebacklimit = 0
 
 # execute linting
 sys.exit(
-    Lint(git_handle=GitHandle(), linters=linters).run()
+    Lint(git_handle=git_handle, linters=linters).run()
 )

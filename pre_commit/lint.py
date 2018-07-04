@@ -25,9 +25,9 @@ class Lint(object):
     def __init__(self, git_handle, linters, *args, **kwargs):
         """
         Args:
-            git_handle: a `GitHandle` instance for the repository of interest
+            git_handle: a `GitHandle` instance for the repository of interest.
             linters: an iterable of `Linter` objects
-            (see `pre_commit.linters`).
+                (see `pre_commit.linters`).
         """
         # get the input git handle
         self.git_handle = git_handle

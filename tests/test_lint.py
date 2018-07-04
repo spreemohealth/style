@@ -208,7 +208,7 @@ class TestLint(TestCase):
                 linters=[MarkdownLinter(), PythonLinter(), RLinter()]
             )
 
-            # execute the main method of the  `Lint` object
+            # execute the main method of the `Lint` object
             f = StringIO()
             with redirect_stdout(f):
                 n_files_with_problems = ell.run()
@@ -224,6 +224,94 @@ class TestLint(TestCase):
             w1.delete()
             w2.delete()
             w3.delete()
+            repo.delete()
+
+    def test_run_with_linters_config(self):
+        # test ability to execute `run` method with multiple linters,
+        # honoring the linters config files
+        try:
+            # initialize repo
+            repo = BasicRepo(bare=False)
+
+            # write a bad markdown file
+            test_staged_file = path.join(repo.repo_path, "foo.md")
+            w = Writer(test_staged_file)
+            w.write("# Bad markdown")
+            w.write("There should be an empty line before this!")
+
+            # write the .markdownlint.json config file to ignore
+            # "MD022/blanks-around-headers"
+            md_config_file_path = path.join(
+                repo.repo_path, ".markdownlint.json"
+            )
+            w_md_conf = Writer(md_config_file_path)
+            w_md_conf.write("{")
+            w_md_conf.write('    "MD022": false')
+            w_md_conf.write("}")
+
+            # write a bad R file
+            test_staged_file1 = path.join(repo.repo_path, "bar.R")
+            w1 = Writer(test_staged_file1)
+            w1.write("# Bad R")
+            w1.write("f <- function(x) print('Hello')")
+
+            # write the .lintr config file to ignore the "single_quotes_linter"
+            r_config_file_path = path.join(repo.repo_path, ".lintr")
+            w_r_conf = Writer(r_config_file_path)
+            w_r_conf.write("linters: with_defaults(single_quotes_linter=NULL)")
+
+            # write a bad Python file
+            test_staged_file2 = path.join(repo.repo_path, "foof.py")
+            w2 = Writer(test_staged_file2)
+            w2.write("# Bad Python")
+            w2.write("a=2")
+
+            # write the `.flake8` config file instructing to
+            # except "E225"
+            py_config_file_path = path.join(repo.repo_path, ".flake8")
+            w_py_conf = Writer(py_config_file_path)
+            w_py_conf.write("[flake8]")
+            w_py_conf.write("ignore = E225")
+
+            # stage the files
+            repo.repo.git.add([
+                test_staged_file,
+                test_staged_file1,
+                test_staged_file2
+            ])
+
+            # initialize a `GitHandle`
+            git_handle = GitHandle(path=repo.repo_path)
+
+            # initialize a `Lint` object
+            ell = Lint(
+                git_handle=git_handle,
+                linters=[
+                    MarkdownLinter(config_path=w_md_conf.path),
+                    PythonLinter(config_path=w_py_conf.path),
+                    RLinter(config_path=w_r_conf.path)
+                ]
+            )
+
+            # execute the main method of the `Lint` object
+            f = StringIO()
+            with redirect_stdout(f):
+                n_files_with_problems = ell.run()
+
+            # all linting issues should be ignored
+            self.assertEqual(n_files_with_problems, 0)
+
+        except Exception:
+            raise
+
+        finally:
+            # clean up
+            w.delete()
+            w_md_conf.delete()
+            w1.delete()
+            w_r_conf.delete()
+            w2.delete()
+            w_py_conf.delete()
             repo.delete()
 
 

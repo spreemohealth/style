@@ -34,9 +34,9 @@ If you add support for additional linters, please
 
 - update the `install.py` file
 
-- update the `README.md` file
+- update the `pre_commit/pre-commit` file
 
-- update the `pre_commit/uninstall.py` file, if needed.
+- update the `README.md` file.
 
 <!-- markdownlint-disable MD026-->
 
