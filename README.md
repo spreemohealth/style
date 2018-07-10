@@ -164,7 +164,7 @@ Currently, `style` can perform code checking on files written in
 
    to display all installation options.
 
-## Uninstalling the pre-commmit hook
+## Uninstalling the pre-commit hook
 
 1. `cd` into the root of the repository from which you want to remove the hook,
    e.g.
