@@ -78,7 +78,7 @@ Currently, `style` can perform code checking on files written in
 - **Markdown** (`.md` files), using
   [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli)
 
-- **Python** (`.py` files), using
+- **Python 3** (`.py` files), using
   [`flake8`](https://github.com/PyCQA/flake8)
 
 - **R** (`.r` or `.R` files), using
