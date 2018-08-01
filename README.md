@@ -106,7 +106,7 @@ in one or more repositories.
    interactive mode:
 
    ```bash
-   docker run --name stylish_repo -it -v $(pwd):/repo spreemohealth/style
+   docker run --name stylish_controller -it -v $(pwd):/repo spreemohealth/style
    ```
 
    You can change the name of the container by specifying a different value
@@ -122,7 +122,7 @@ in one or more repositories.
 6. When you are done, you can shut down the container with
 
    ```bash
-   docker stop stylish_repo
+   docker stop stylish_controller
    ```
 
    or by typing
@@ -136,14 +136,14 @@ in one or more repositories.
 7. You can later restart the container with
 
    ```bash
-   docker start -i stylish_repo
+   docker start -i stylish_controller
    ```
 
 8. You can remove the container with
 
    ```bash
-   docker stop stylish_repo
-   docker rm stylish_repo
+   docker stop stylish_controller
+   docker rm stylish_controller
    ```
 
 ### Install `style` locally on one or more repositories
