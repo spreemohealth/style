@@ -92,12 +92,12 @@ in one or more repositories.
 ### Run `style` via Docker (recommended)
 
 1. Make sure that the
-   [Docker client](https://www.docker.com/community-edition#/download) 
+   [Docker client](https://www.docker.com/community-edition#/download)
    for your operating system is installed on your machine and that it is
    running.
 
 2. `cd` to the root of the target repository, e.g.
-   
+
    ```bash
    cd ~/Git/my-linty-repo
    ```
