@@ -26,6 +26,9 @@ RUN npm install -g markdownlint-cli
 # Install git
 RUN apt-get install -y git
 
+# Intall nano
+RUN apt-get install nano
+
 # Create a directory where to mount git repo
 RUN mkdir repo
 RUN echo cd repo >> /root/.bashrc
@@ -34,7 +37,7 @@ RUN echo cd repo >> /root/.bashrc
 RUN echo export 'PS1="style> "' >> /root/.bashrc
 
 # Clone the style repository but remove the .git subdirectory
-RUN git clone https://github.com/mattiaciollaro/style.git
+RUN git clone https://github.com/spreemohealth/style.git
 RUN rm -rf style/.git
 
 # Copy entry point scripts
