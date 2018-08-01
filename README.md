@@ -86,6 +86,68 @@ Currently, `style` can perform code checking on files written in
 
 ## Installing the pre-commit hook
 
+You can run `style` as a Docker container, or perform a full installation
+in one or more repositories.
+
+### Run `style` via Docker (recommended)
+
+1. Make sure that the
+   [Docker client](https://www.docker.com/community-edition#/download) 
+   for your operating system is installed on your machine and that it is
+   running.
+
+2. `cd` to the root of the target repository, e.g.
+   
+   ```bash
+   cd ~/Git/my-linty-repo
+   ```
+
+3. Create a Docker `spreemohealth/style` Docker container and run it in
+   interactive mode:
+
+   ```bash
+   docker run --name stylish_repo -it -v $(pwd):/repo spreemohealth/style
+   ```
+
+   You can change the name of the container by specifying a different value
+   for the `--name` flag.
+
+   Note that your Git repository is mounted to the `/repo` directory of the
+   container.
+
+4. When prompted, enter the required `git` configuration info.
+
+5. Do your work.
+
+6. When you are done, you can shut down the container with
+
+   ```bash
+   docker stop stylish
+   ```
+
+   or by typing
+
+   ```bash
+   exit
+   ```
+
+   in the container's shell.
+
+7. You can later restart the container with
+
+   ```bash
+   docker start -i stylish
+   ```
+
+8. You can remove the container with
+
+   ```bash
+   docker stop stylish
+   docker rm stylish
+   ```
+
+### Install `style` locally on one or more repositories
+
 1. Please make sure that Python 3 and R are both installed on your system.
 
    *In this example, `python` and `pip` point to the Homebrew*
@@ -164,7 +226,7 @@ Currently, `style` can perform code checking on files written in
 
    to display all installation options.
 
-## Uninstalling the pre-commit hook
+### Uninstalling the pre-commit hook
 
 1. `cd` into the root of the repository from which you want to remove the hook,
    e.g.
