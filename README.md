@@ -125,6 +125,14 @@ in one or more repositories.
    docker stop stylish
    ```
 
+   or by typing
+
+   ```bash
+   exit
+   ```
+
+   in the container's shell.
+
 7. You can later restart the container with
 
    ```bash
