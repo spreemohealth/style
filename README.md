@@ -122,7 +122,7 @@ in one or more repositories.
 6. When you are done, you can shut down the container with
 
    ```bash
-   docker stop stylish
+   docker stop stylish_repo
    ```
 
    or by typing
@@ -136,14 +136,14 @@ in one or more repositories.
 7. You can later restart the container with
 
    ```bash
-   docker start -i stylish
+   docker start -i stylish_repo
    ```
 
 8. You can remove the container with
 
    ```bash
-   docker stop stylish
-   docker rm stylish
+   docker stop stylish_repo
+   docker rm stylish_repo
    ```
 
 ### Install `style` locally on one or more repositories
