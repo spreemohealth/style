@@ -86,8 +86,8 @@ Currently, `style` can perform code checking on files written in
 
 ## Installing the pre-commit hook
 
-You can run `style` as a Docker container, or install it in one or more
-repositories.
+You can run `style` as a Docker container, or perform a full installation
+in one or more repositories.
 
 ### Run `style` via Docker (recommended)
 
