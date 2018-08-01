@@ -33,8 +33,9 @@ RUN echo cd repo >> /root/.bashrc
 # Shorten bash prompt
 RUN echo export 'PS1="style> "' >> /root/.bashrc
 
-# Get the style repository
+# Clone the style repository but remove the .git subdirectory
 RUN git clone https://github.com/mattiaciollaro/style.git
+RUN rm -rf style/.git
 
 # Copy entry point scripts
 COPY start.sh /start.sh
