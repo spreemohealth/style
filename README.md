@@ -96,6 +96,7 @@ Currently, `style` can perform code checking on files written in
 2. Make sure that the following are installed on your system:
 
    - `markdownlint-cli`:
+
       ```bash
       npm install -g markdownlint-cli
       ```
@@ -106,11 +107,13 @@ Currently, `style` can perform code checking on files written in
       On Linux, you can install `npm` with `sudo apt-get install npm`.
 
    - the Python `flake8` module:
+
       ```bash
       pip install flake8
       ```
 
    - the R `lintr` package:
+
       ```bash
       R -e "install.packages('lintr', repos = 'https://cloud.r-project.org')"
       ```
