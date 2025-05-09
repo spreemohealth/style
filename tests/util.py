@@ -13,7 +13,7 @@ from git import Repo
 
 
 class BasicRepo(object):
-    def __init__(self, path=path.join(getcwd(), "test_repo"), bare=True):
+    def __init__(self, path=path.join(getcwd(), "test_repo"), bare=False):
         self.repo_path = path
         self.repo = Repo.init(self.repo_path, bare=bare)  # noqa
 
